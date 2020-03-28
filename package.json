@@ -1,0 +1,40 @@
+{
+  "name": "goniometer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node -r esm app.js",
+    "db:init": "node -r esm ./scripts/dbInit.script.js",
+    "dev": "nodemon -r esm app.js",
+    "test": "env NODE_ENV=test mocha  --timeout 15000 'test/**/*.test.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Pivot/goniometer-api.git"
+  },
+  "author": "Team Pivot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Pivot/goniometer-api/issues"
+  },
+  "homepage": "https://github.com/Team-Pivot/goniometer-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "mysql2": "^2.1.0",
+    "passport": "^0.4.1",
+    "validate.js": "^0.13.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "mocha": "^7.1.1",
+    "nodemon": "^2.0.2",
+    "prompt": "^1.0.0"
+  }
+}
