@@ -18,7 +18,21 @@ To set up the databases, you'll need to run the following command:
 npm db:init
 ```
 
-This runs the setup script which will create two databases, _pivot_api_ and _pivot_api_test_ as well as a user which can access both of them. The script will prompt you for a MySQL username and password for an existing MySQL account on your system with the permissions to create users, databases, and procedures.
+This runs the setup script which will create two databases, _pivot_api_ and _pivot_api_test_. The script will prompt you for a MySQL username and password for an existing MySQL account on your system with the permissions to create users, databases, and procedures.
+
+You will also need to create a new user in MySQL, and grant it privileges on the databases you just created. To do this, run the following:
+
+```bash
+mysql -u root -p
+
+# from inside the mysql terminal
+CREATE USER 'pivotAdmin'@'localhost' IDENTIFIED BY "<SOME PASSWORD YOU'LL PUT HERE AND NOT LOSE>";
+
+GRANT all ON pivot_api.* TO 'pivotAdmin'@'localhost';
+GRANT all ON pivot_api_test.* TO 'pivotAdmin'@'localhost';
+
+FLUSH PRIVILEGES;
+```
 
 ### Add a .config.js file
 
