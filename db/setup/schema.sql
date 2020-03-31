@@ -1,3 +1,12 @@
+DROP TABLE IF EXISTS Goniometer;
+DROP TABLE IF EXISTS Measurement;
+DROP TABLE IF EXISTS MeasurementType;
+DROP TABLE IF EXISTS JointType;
+DROP TABLE IF EXISTS ClinicAccess;
+DROP TABLE IF EXISTS Admin;
+DROP TABLE IF EXISTS Client;
+DROP TABLE IF EXISTS Clinic;
+
 CREATE TABLE Clinic (
   id BINARY(16) PRIMARY KEY,
   name VARCHAR(255),
@@ -23,29 +32,27 @@ CREATE TABLE Client (
 );
 
 CREATE TABLE MeasurementType (
-  id BINARY(16) PRIMARY KEY,
-  name VARCHAR(255)
+  name VARCHAR(255) PRIMARY KEY
 );
 
 CREATE TABLE JointType (
-  id BINARY(16) PRIMARY KEY,
-  name VARCHAR(255)
+  name VARCHAR(255) PRIMARY KEY
 );
 
 CREATE TABLE Measurement (
   id BINARY(16) PRIMARY KEY,
   angle DECIMAL(5, 2) NOT NULL,
   end_angle DECIMAL(5, 2),
-  joint_type BINARY(16) NOT NULL,
-  measurement_type BINARY(16) NOT NULL,
+  joint_type VARCHAR(255) NOT NULL,
+  measurement_type VARCHAR(255) NOT NULL,
   client BINARY(16) NOT NULL,
   clinic BINARY(16) NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   -- deleted BOOLEAN DEFAULT 0
-  CONSTRAINT fk_measure_m_type FOREIGN KEY (measurement_type) REFERENCES MeasurementType(id)
+  CONSTRAINT fk_measure_m_type FOREIGN KEY (measurement_type) REFERENCES MeasurementType(name)
     ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT fk_measure_j_type FOREIGN KEY (joint_type) REFERENCES JointType(id)
+  CONSTRAINT fk_measure_j_type FOREIGN KEY (joint_type) REFERENCES JointType(name)
     ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT fk_measure_client FOREIGN KEY (client) REFERENCES Client(id)
     ON DELETE CASCADE ON UPDATE CASCADE,
@@ -86,69 +93,3 @@ CREATE TABLE Goniometer (
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_goniometer_clinic FOREIGN KEY (clinic) REFERENCES Clinic(id)
 );
-
-DELIMITER ;;
-CREATE TRIGGER before_insert_clinic
-BEFORE INSERT ON Clinic
-FOR EACH ROW
-BEGIN
-  IF new.id IS NULL THEN
-    SET new.id = UUID_TO_BIN(UUID());
-  END IF;
-END;;
-
-CREATE TRIGGER before_insert_measurement_type
-BEFORE INSERT ON MeasurementType
-FOR EACH ROW
-BEGIN
-  IF new.id IS NULL THEN
-    SET new.id = UUID_TO_BIN(UUID());
-  END IF;
-END;;
-
-CREATE TRIGGER before_insert_joint_type
-BEFORE INSERT ON JointType
-FOR EACH ROW
-BEGIN
-  IF new.id IS NULL THEN
-    SET new.id = UUID_TO_BIN(UUID());
-  END IF;
-END;;
-
-CREATE TRIGGER before_insert_measurement
-BEFORE INSERT ON Measurement
-FOR EACH ROW
-BEGIN
-  IF new.id IS NULL THEN
-    SET new.id = UUID_TO_BIN(UUID());
-  END IF;
-END;;
-
-CREATE TRIGGER before_insert_client
-BEFORE INSERT ON Client
-FOR EACH ROW
-BEGIN
-  IF new.id IS NULL THEN
-    SET new.id = UUID_TO_BIN(UUID());
-  END IF;
-END;;
-
-CREATE TRIGGER before_insert_admin
-BEFORE INSERT ON Admin
-FOR EACH ROW
-BEGIN
-  IF new.id IS NULL THEN
-    SET new.id = UUID_TO_BIN(UUID());
-  END IF;
-END;;
-
-CREATE TRIGGER before_insert_goniometer
-BEFORE INSERT ON Goniometer
-FOR EACH ROW
-BEGIN
-  IF new.id IS NULL THEN
-    SET new.id = UUID_TO_BIN(UUID());
-  END IF;
-END;;
-
-DELIMITER ;

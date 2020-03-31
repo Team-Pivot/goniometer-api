@@ -83,7 +83,7 @@ async function initialize() {
     console.log('Uploading schema to database:', dbName);
     try {
       await new Promise((resolve, reject) => exec(
-        `mysql -u ${mysqlAdmin.user} -p ${dbName} < ${process.cwd()}/db/schema.sql`,
+        `mysql -u ${mysqlAdmin.user} -p ${dbName} < ${process.cwd()}/db/setup/schema.sql`,
         (error, stdout, stderr) => {
           if (error) {
             reject(error);
