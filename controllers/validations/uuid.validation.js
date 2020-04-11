@@ -1,5 +1,3 @@
-const uuidPattern = /^$/;
-
 export default ({ presence = true } = {}) => ({
   presence,
   type: 'string',

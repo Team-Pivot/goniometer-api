@@ -29,8 +29,8 @@ async function getMeasurements(req, res, next) {
 
 async function createMeasurement(req, res, next) {
   const params = {
-    angle: req.body.angle, // required, should be a XXX.XX decimal
-    endAngle: req.body.endAngle, // not required, should be a XXX.XX decimal
+    angle: parseFloat(req.body.angle), // required, should be a XXX.XX decimal
+    endAngle: req.body.endAngle != null ? parseFloat(req.body.endAngle) : undefined, // not required, should be a XXX.XX decimal
     jointType: req.body.jointType, // expect a string name that is only alphanumeric, hyphens, or apostrophes
     measurementType: req.body.measurementType, // expect a string name that is only alphanumeric, hyphens, or apostrophes
     client: req.params.clientId, // expect a string UUID
