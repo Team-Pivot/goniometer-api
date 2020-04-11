@@ -120,13 +120,13 @@ module.exports = {
       user: "pivotAdmin",
       password: "<PIVOT ADMIN PASSWORD>", // whatever password you made for pivotAdmin
       host: "localhost",
-      database: "pivot_api",
-    }
+      database: "pivot_api"
+    },
     test: {
         user: "pivotAdmin",
         password: "<PIVOT ADMIN PASSWORD>", // whatever password you made for pivotAdmin
         host: "localhost",
-        database: "pivot_api_test",
+        database: "pivot_api_test"
     }
   }
 }
