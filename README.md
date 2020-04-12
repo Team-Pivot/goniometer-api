@@ -88,7 +88,7 @@ Once you have both installed and configured, just clone this repository onto you
 To set up the databases, you'll need to run the following command:
 
 ```bash
-npm db:init
+npm run db:init
 ```
 
 This runs the setup script which will create two databases, _pivot_api_ and _pivot_api_test_. The script will prompt you for a MySQL username and password for an existing MySQL account on your system with the permissions to create users, databases, and procedures.
