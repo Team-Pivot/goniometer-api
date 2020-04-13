@@ -17,7 +17,7 @@ export default async function getClientList({ limit = 1000, offset = 0 } = {}) {
   try {
     return await db.pool.promise().query(qstr, [limit, offset]);
   } catch (err) {
-    console.err(err);
+    console.error(err)
     throw err;
   }
 }

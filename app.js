@@ -14,7 +14,7 @@ app.get('/', (req, res) => res.send('hello world'));
 
 app.use('/v1', routes);
 
-app.listen(3000, () => console.log('Pivot app deployed on port 3000'));
+app.listen(80, () => console.log('Pivot app deployed on port 80'));
 
 module.exports = {
   app,

@@ -29,4 +29,4 @@ INSERT INTO pivot_api.MeasurementType (name)
 VALUES ('flexion'), ('extension');
 
 INSERT INTO pivot_api.JointType (name)
-VALUES ('elbow'), ('knee'), ('shoulder') ('ankle');
+VALUES ('elbow'), ('knee'), ('shoulder'), ('ankle');
