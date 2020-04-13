@@ -39,6 +39,55 @@ Gets a list of clients
 ];
 ```
 
+### GET /clients/:clientId/measurements
+
+#### Description
+
+Gets a list of measurements for a given client
+
+#### Params
+
+##### URL
+
+- **clientId:** the 36 character UUID of the client
+
+##### Query
+
+- **dateRange:** _(String[2])_ an upper and lower bound date range in ISO format _(e.g. ["2020-04-13T23:10:01.000Z"])_
+- **limit:** _(Integer)_ How many items to pull (default 1000)
+- **offset:** _(Integer)_ The index from which to start pulling items (default 0)
+
+#### Responses
+
+##### 200 Ok
+
+```js
+[
+  {
+    id: '8f375edb-7dd1-11ea-96d0-448a5b898492',
+    angle: '43.23',
+    endAngle: null,
+    jointType: 'elbow',
+    measurementType: 'flexion',
+    client: '9c99e9c8-7dbf-11ea-96d0-448a5b898492',
+    clinic: '9c99e665-7dbf-11ea-96d0-448a5b898492',
+    createdAt: '2020-04-13T21:55:59.000Z',
+    updatedAt: '2020-04-13T21:55:59.000Z',
+  },
+  // ...
+];
+```
+
+##### 400 Bad Request
+
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ];
+}
+```
+
 ### POST /clients/:clientId/measurements
 
 #### Description
@@ -65,6 +114,45 @@ Gets a list of clients
 {
   id: '12345678-1234-1234-1234-1234567890ab', // the uuid of the created measurement
 }
+```
+
+##### 400 Bad Request
+
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ];
+}
+```
+
+### GET /clinics/
+
+#### Description
+
+Gets a list of all clinics
+
+#### Params
+
+**_N/A_**
+
+#### Responses
+
+##### 200 Resource Created
+
+```js
+[
+  {
+    id: '9c99e665-7dbf-11ea-96d0-448a5b898492',
+    name: 'GT Clinic',
+    street: '200 Techwood Dr.',
+    zipcode: '30313',
+    state: 'GA',
+    createdAt: '2020-04-13T19:47:30.000Z',
+    updatedAt: '2020-04-13T19:47:30.000Z',
+  },
+  // ...
+];
 ```
 
 ##### 400 Bad Request
@@ -117,19 +205,19 @@ This file will hold all necessary application secrets. For now, just put the fol
 module.exports = {
   db: {
     dev: {
-      user: "pivotAdmin",
-      password: "<PIVOT ADMIN PASSWORD>", // whatever password you made for pivotAdmin
-      host: "localhost",
-      database: "pivot_api"
+      user: 'pivotAdmin',
+      password: '<PIVOT ADMIN PASSWORD>', // whatever password you made for pivotAdmin
+      host: 'localhost',
+      database: 'pivot_api',
     },
     test: {
-        user: "pivotAdmin",
-        password: "<PIVOT ADMIN PASSWORD>", // whatever password you made for pivotAdmin
-        host: "localhost",
-        database: "pivot_api_test"
-    }
-  }
-}
+      user: 'pivotAdmin',
+      password: '<PIVOT ADMIN PASSWORD>', // whatever password you made for pivotAdmin
+      host: 'localhost',
+      database: 'pivot_api_test',
+    },
+  },
+};
 ```
 
 ### Run npm install

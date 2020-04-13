@@ -10,7 +10,7 @@ const pool = mysql.createPool({
 export default {
   pool,
   escape(s) {
-    return db.escape(s);
+    return pool.escape(s);
   },
   async getUUID() {
     const [row] = await pool.promise().query('SELECT UUID() as uuid');

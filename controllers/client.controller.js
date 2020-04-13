@@ -24,7 +24,31 @@ async function deleteClient(req, res, next) {
 }
 
 async function getMeasurements(req, res, next) {
-  return res.json({ message: 'not yet implemented' });
+  const params = {
+    client: req.params.clientId,
+    dateRange: req.query.dateRange,
+    limit: req.query.limit != null ? parseFloat(req.query.limit) : 1000,
+    offset: req.query.offset != null ? parseFloat(req.query.offset) : 0,
+    order: req.query.order,
+  };
+  const errs = validate(params, {
+    client: validations.uuid(),
+    dateRange: { type: 'array', length: { maximum: 2 } },
+    'dateRange.0': validations.ISOTime({ presence: false }),
+    'dateRange.1': validations.ISOTime({ presence: false }),
+    limit: validations.int({ bounds: [0] }),
+    offset: validations.int({ bounds: [0] }),
+    order: { type: 'array' },
+  });
+
+  if (errs) {
+    return res.status(400).json({
+      errors: errs,
+    });
+  }
+
+  const measurements = await services.getMeasurements(params);
+  return res.json(measurements);
 }
 
 async function createMeasurement(req, res, next) {
