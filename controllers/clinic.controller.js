@@ -1,5 +1,4 @@
-import validate from 'validate.js';
-import validations from './validations';
+import { validate, validations } from './validations';
 import services from '../services';
 
 async function getClinics(req, res, next) {

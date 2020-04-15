@@ -9,6 +9,39 @@ Exposes routes used to manage the connected goniometer system.
 **Measurement types:** 'flexion', 'extension'
 **Joint types:** 'elbow', 'knee', 'shoulder'
 
+### POST /clients
+
+#### Description
+
+Create a new client
+
+#### Params
+
+##### Body
+
+- **firstName:** _(Integer)_ How many clients to pull (default 1000)
+- **lastName:** _(Integer)_ The index from which to start pulling items (default 0)
+- **birstDate:** _(Integer)_ The index from which to start pulling items (default 0)
+- **clinic:** _(Integer)_ The clinic at which to add the client (default 0)
+- **ehrlink:** _(Integer)_ A valid url link to an endpoint resource (not required)
+
+#### Responses
+
+##### 200 Ok
+
+```js
+[
+  {
+    id: '12345678-1234-1234-1234-1234567890ab', // the uuid of the client,
+    firstName: 'Bob',
+    lastName: 'Robertson',
+    clinic: '12345679-1234-1234-1234-1234567890ab', // uuid of the associated clinic
+    birth_date: '1960-01-01',
+  },
+  // ... rest of the clients in the system
+];
+```
+
 ### GET /clients
 
 #### Description
