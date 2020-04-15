@@ -79,9 +79,9 @@ Gets a list of clients
 
 ## Installation
 
-In order to use this api, you should have node v12+ running on your system, as well as a MySQL v8 database running. If you need to set up node, you can follow this [install node with nvm](https://nodesource.com/blog/installing-node-js-tutorial-using-nvm-on-mac-os-x-and-ubuntu/) tutorial. To install MySQL version 8, follow this [MySQL 8.0 installation](https://dev.mysql.com/doc/refman/8.0/en/installing.html) tutorial.
+In order to use this api, you should have node v12+ running on your system, a MySQL v8 database running, and Apache version 2.4 sebserver. If you need to set up node, you can follow this [install node with nvm](https://nodesource.com/blog/installing-node-js-tutorial-using-nvm-on-mac-os-x-and-ubuntu/) tutorial. To install MySQL version 8, follow this [MySQL 8.0 installation](https://dev.mysql.com/doc/refman/8.0/en/installing.html) tutorial. To install Apache, follow the installation guide for you platform [Download - Tha Apache HTTP Server Project](http://httpd.apache.org/download.cgi#apache24)
 
-Once you have both installed and configured, just clone this repository onto your system and do the following in the project's root folder:
+Once you have them installed and configured, just clone this repository onto your system and do the following in the project's root folder:
 
 ### Set up the databases
 
@@ -137,6 +137,18 @@ module.exports = {
 ```bash
 npm install
 ```
+
+### Setting Up the Apache Server
+You'll need to set the document root and index in the httpd.conf file for the server to return the webapplication to the user. The location of this file and the comands used to control the server will very based on your opperating system.
+
+Inside of your Apache2 directory open the /conf/httpd.conf file. 
+
+Set the DocumentRoot to [file path to repository]/dashboard
+
+Set the DirectoryIndex to login.html
+
+Start the server using the command specific to your OS.
+
 
 ## Running the api
 
