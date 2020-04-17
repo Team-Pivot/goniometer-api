@@ -1,0 +1,104 @@
+html {
+	background: #FFFFFF;
+}
+
+.rectangle {
+	position: absolute;
+	width: 100vw;
+	height: 80px;
+	left: 0px;
+	top: 0px;
+
+	background: #4B79BF;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.clinicName {
+	position: absolute;
+	width: 671px;
+	height: 52px;
+	left: 48px;
+}
+
+h1 {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 28px;
+	line-height: 37px;
+	display: flex;
+	align-items: center;
+
+	color: #FFFFFF;
+}
+
+.logout {
+	position: absolute;
+	width: 125px;
+	height: 52px;
+	right: 36px;
+
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 28px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+
+	color: #FFFFFF;
+}
+
+.welcome {
+	position: absolute;
+	width: 1344px;
+	height: 70px;	
+	left: 68px;
+	top: 96px;
+}
+
+header {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 40px;
+	line-height: 56px;
+	display: flex;
+	align-items: center;
+
+	color: #000000;
+}
+
+.rectangle2 {
+	position: absolute;
+	width: 1344px;
+	height: 2px;
+	left: 68px;
+	top: 164px;
+
+	background: #000000;
+}
+
+.manGon {
+	position: absolute;
+	width: 489px;
+	height: 48px;
+	left: 68px;
+	top: 158px;
+
+	align-items: flex-end;
+	color: #000000;
+}
+.gonFrame {
+	position: absolute;
+	width: 206px;
+	height: 206px;
+	left: 68px;
+	top: 252px;
+
+	background: #D3DFF1;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+}
+
