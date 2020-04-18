@@ -56,10 +56,42 @@
 			</svg>
 
 
-			<button class="addGon">
+			<button class="addGon" id="addGon">
 					Add Goniomter
 			</button>
 		</div>
+
+		<!-- This is the popo up window for addinvg a goniometer -->
+
+		<div class="gonPop" id="gonPop">
+			<div class="gonPopCon">
+				<h2 class="popTitle">
+					Add New Goniometer
+				</h2>
+				<form>
+					<label for="devName">Device Name</label>
+					<input type="text" id="devName" name="devName" style="margin-top:30px;"> <br>
+
+					<label for="devCode">Device Activation Code</label>
+					<input type="text" id="devCode" name="devCode">
+
+					<input type="submit" value="+ Add" id="gonSubmit">
+				</form>
+			</div>
+		</div>
+
+		<!-- This Script opens the add vgoniomheter pop up formh -->
+		<script>
+			var modal = document.getElementById("gonPop");
+			var btn =  document.getElementById("addGon");
+			btn.onclick = function() {
+				modal.style.display = "block";
+			}
+			var close = document.getElementById("gonSubmit");
+			close.onclick = function () {
+				modal.style.display = "none";
+			}
+		</script> 
 
 
 		<!-- Manage Clinic Informaion Quadrant -->

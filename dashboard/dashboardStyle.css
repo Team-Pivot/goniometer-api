@@ -327,3 +327,79 @@ td{
 svg {
 	left: 10px;
 }
+
+.gonPop { 
+	display: none;
+  	position: fixed; 
+  	z-index: 1; 
+  	top: 0;
+  	left: 0px;
+  	width: 100%; 
+  	height: 100%; 
+  	background-color: rgb(0,0,0); 
+  	background-color: rgba(0,0,0,0.4);
+}
+
+.gonPopCon {
+	background-color: #ffffff;
+  	margin: 15% auto; /* 15% from the top and centered */
+  	padding: 10px;
+  	border: 1px solid #888;
+  	width: 30%;
+  	height: 35%;
+  	align-items: flex-end;
+}
+
+label {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 28px;
+	align-items: center;
+	margin-left: 20px;
+	color: #000000;
+
+	position: absolute;
+	width: 543px;
+	height: 48px;
+}
+
+input[type=text] {
+	background-color: #f6f6f6;
+	border: none;
+  	color: #0d0d0d;
+  	text-align: center;
+  	font-size: 16px;
+  	margin-bottom: 13px;
+  	margin-top: 27px;
+  	margin-left: 30px;
+  	width: 85%;
+	height: 38px;
+  	box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+}
+
+input[type=submit] {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 1em;
+	display: block;
+	text-align: center;
+	height: 26px;
+	margin-left: 360px;
+
+	color: #FFFFFF;
+	background: #368E00;
+	mix-blend-mode: normal;
+
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+}
+
+.popTitle {
+	margin-left: 20px;
+	font-weight: bold;
+}
