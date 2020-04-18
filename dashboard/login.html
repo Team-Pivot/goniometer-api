@@ -7,12 +7,21 @@
 	</div>
   <div id="formContent">
     <!-- Login Form -->
-    <form>
+    <form target="_blank">
       <input type="text" id="clinicId" class="fadeIn second" name="clinicId" placeholder="Clinic ID">
       <input type="text" id="email" class="fadeIn third" name="email" placeholder="Email">
       <input type="text" id="password" class="fadeIn fourth" name="pass" placeholder="Password">
-      <input type="submit" class="fadeIn fifth" value="Log In">
+      <input type="submit" class="fadeIn fifth" id="login" value="Log In">
     </form>
+
+    <!-- This script sends the logged in user to the dashboard. This should be done by whatevger is handlinvg the form when we call the api -->
+    <script>
+      var login = document.getElementById("login");
+      login.onclick = function() {
+        window.location.href = "dashboard.html";
+      }
+
+    </script>
 
 
   </div>

@@ -5,8 +5,16 @@
 	<!-- Header Bar -->
 	<div class="rectangle">
 		<h1 class ="clinicName">[Clinic Name Placeholder]</h1>
-		<h2 class="logout">Logout</h2>
+		<h2 class="logout" id="logout">Logout</h2>
 	</div>
+
+	<!-- script that returns to login page -->
+	<script type="text/javascript">
+		var logout = document.getElementById("logout");
+		logout.onclick = function() {
+			window.location.href = "login.html";
+		}
+	</script>
 
 	<!-- Welcome Bar -->
 	<div>
@@ -29,7 +37,39 @@
 				<circle cy="50" cx="113" r="5" fill="#c4c4c4" />
 			</svg>
 
-			<img src="Images/more_options.png"/>
+			<div class="gonMenu">
+				<img onclick= "dropDown()" class="menuIcon" src="Images/more_options.png"/>
+				<div id="menu1" class="menu">
+					<p>Rename</p>
+					<p style="color:red;">Delete</p>
+				</div>
+			</div>
+
+
+			<!-- Controls the drop down menu for this goniometer -->
+			<script>
+				function dropDown() {
+					document.getElementById("menu1").classList.toggle("show");
+				}
+
+				window.onclick = function(event) {
+  					if (!event.target.matches('.menuIcon')) {
+    					var dropdowns = document.getElementsByClassName("menu");
+    					var i;
+    					for (i = 0; i < dropdowns.length; i++) {
+      						var openDropdown = dropdowns[i];
+      						if (openDropdown.classList.contains('show')) {
+        						openDropdown.classList.remove('show');
+      						}
+    					}
+  					}
+				}
+
+
+				//add functionality for the Rename and Delete buttons here!
+
+			</script>
+
 
 			<small class="gonBold">Device Name:</small>
 			<small class ="gonThin">[Goniometer Name]</small>
