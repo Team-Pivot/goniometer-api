@@ -72,7 +72,7 @@ header {
 
 .rectangle2 {
 	position: absolute;
-	width: 1344px;
+	width: 1374px;
 	height: 2px;
 	left: 68px;
 	top: 164px;
@@ -92,13 +92,163 @@ header {
 }
 .gonFrame {
 	position: absolute;
-	width: 206px;
-	height: 206px;
+	width: 226px;
+	height: 186px;
 	left: 68px;
-	top: 252px;
+	top: 232px;
 
 	background: #D3DFF1;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 4px;
 }
 
+.gonBold {
+	position: absolute;
+	width: 88px;
+	height: 16px;
+	left: 8px;
+	top: 114px;
+	font-weight: bold;
+	align-items: flex-end;
+	font-size: 12px;
+	line-height: 14px;
+}
+
+.gonThin {
+	position: absolute;
+	width: 136px;
+	height: 16px;
+	left: 96px;
+	top: 114px;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 14px;
+	align-items: flex-end;
+}
+
+small {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-style: normal;
+	display: flex;
+
+	color: #000000;
+}
+
+.addGonFrame {
+	position: absolute;
+	width: 226px;
+	height: 186px;
+	left: 411px;
+	top: 232px;
+
+	background: #D3DFF1;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+}
+
+button {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 1em;
+	display: block;
+	text-align: center;
+
+	color: #FFFFFF;
+	background: #368E00;
+	mix-blend-mode: normal;
+
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+}
+
+
+.addGon {
+	position: absolute;
+	width: 177px;
+	height: 42px;
+	left: 24px;
+	top: 127px;
+}
+
+.clinicInfo {
+	position: absolute;
+	width: 505px;
+	height: 48px;
+	left: 68px;
+	top: 427px;
+
+	align-items: flex-end;
+
+	color: #000000;
+}
+
+.clinicEdit {
+	position: absolute;
+	width: 96px;
+	height: 32px;
+	left: 555px;
+	top: 455px;
+}
+.clinicFrame {
+	position: absolute;
+	width: 591px;
+	height: 241px;
+	left: 68px;
+	top: 496px;
+
+	background: #D3DFF1;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+}
+
+.clinicLabels {
+	position: absolute;
+	width: 486px;
+	height: 48px;
+	left: 19px;
+}
+
+h2 {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 24px;
+	display: flex;
+	align-items: flex-end;
+
+	color: #000000;
+}
+
+.clinicStuff {
+	position: absolute;
+	width: 290px;
+	height: 19px;
+	left: 19px;
+}
+
+p{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 19px;
+	/* identical to box height */
+
+	display: flex;
+	align-items: flex-end;
+
+	color: #000000;
+}
+
+.sep {
+	position: absolute;
+	width: 561px;
+	height: 1px;
+	left: 19px;
+	display: block;
+
+	background: #919191;
+}
