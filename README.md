@@ -9,21 +9,18 @@ Exposes routes used to manage the connected goniometer system.
 **Measurement types:** 'flexion', 'extension'
 **Joint types:** 'elbow', 'knee', 'shoulder'
 
-### POST /clients
+### GET /clients
 
 #### Description
 
-Create a new client
+Gets a list of clients
 
 #### Params
 
-##### Body
+##### Query
 
-- **firstName:** _(Integer)_ How many clients to pull (default 1000)
-- **lastName:** _(Integer)_ The index from which to start pulling items (default 0)
-- **birstDate:** _(Integer)_ The index from which to start pulling items (default 0)
-- **clinic:** _(Integer)_ The clinic at which to add the client (default 0)
-- **ehrlink:** _(Integer)_ A valid url link to an endpoint resource (not required)
+- **limit:** _(Integer)_ How many clients to pull (default 1000)
+- **offset:** _(Integer)_ The index from which to start pulling items (default 0)
 
 #### Responses
 
@@ -42,18 +39,21 @@ Create a new client
 ];
 ```
 
-### GET /clients
+### POST /clients
 
 #### Description
 
-Gets a list of clients
+Create a new client
 
 #### Params
 
-##### Query
+##### Body
 
-- **limit:** _(Integer)_ How many clients to pull (default 1000)
-- **offset:** _(Integer)_ The index from which to start pulling items (default 0)
+- **firstName:** _(Integer)_ How many clients to pull (default 1000)
+- **lastName:** _(Integer)_ The index from which to start pulling items (default 0)
+- **birstDate:** _(Integer)_ The index from which to start pulling items (default 0)
+- **clinic:** _(Integer)_ The clinic at which to add the client (default 0)
+- **ehrlink:** _(Integer)_ A valid url link to an endpoint resource (not required)
 
 #### Responses
 
@@ -197,6 +197,186 @@ Gets a list of all clinics
   ];
 }
 ```
+
+### GET /clinics/:clinic/goniometers
+
+#### Description
+
+#### Params
+
+##### URL
+
+- **clinic:** _(String)_ the 36 character UUID of the clinic that the measurement is taken at
+- **search:** _(String)_ a string to match to a goniometer name
+- **limit:** _(Integer)_ How many items to pull (default 1000)
+- **offset:** _(Integer)_ The index from which to start pulling items (default 0)
+
+#### Responses
+
+##### 200 Resource Created
+
+```js
+[
+  {
+    id: '16220219-826a-11ea-898a-448a5b898492',
+    name: 'test-goniometer',
+    clinic: 'c8dd9a68-8265-11ea-898a-448a5b898492',
+    lastUsed: null,
+    createdAt: '2020-04-19T18:17:53.000Z',
+    updatedAt: '2020-04-19T18:57:22.000Z',
+  },
+  // ...
+];
+```
+
+##### 400 Bad Request
+
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ];
+}
+```
+
+### GET /goniometers
+
+#### Description
+
+Gets a list of all clinics
+
+#### Params
+
+- **limit:** _(Integer)_ How many items to pull (default 1000)
+- **offset:** _(Integer)_ The index from which to start pulling items (default 0)
+
+#### Responses
+
+##### 200 Ok
+
+```js
+[
+  {
+    id: '16220219-826a-11ea-898a-448a5b898492',
+    name: 'test-goniometer',
+    clinic: null,
+    lastUsed: null,
+    createdAt: '2020-04-19T18:17:53.000Z',
+    updatedAt: '2020-04-19T18:17:53.000Z',
+  },
+  // ...
+];
+```
+
+##### 400 Bad Request
+
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ];
+}
+```
+
+### POST /goniometers
+
+#### Description
+
+Gets a list of all clinics
+
+#### Params
+
+##### Body
+
+- **name:** _(String)_ the name of the goniometer (doesn't need to be unique, only letters,numbers, hyphens, underscores and spaces)
+- **clinic:** _(String)_ the 36 character UUID of the goniometer's clinic (optional)
+
+#### Responses
+
+##### 201 Resource Created
+
+```js
+{
+  id: '16220219-826a-11ea-898a-448a5b898492',
+}
+```
+
+##### 400 Bad Request
+
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ];
+}
+```
+
+### DELETE /goniometers/:goniometer
+
+#### Description
+
+Deletes the given goniometer. Fails if the goniometer does not exist
+
+#### Params
+
+##### URL
+
+- **goniometer:** _(String)_ the uuid of the goniometer to delete
+
+#### Responses
+
+##### 204 No Content
+
+```json
+{}
+```
+
+##### 400 Bad Request
+
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ];
+}
+```
+
+### UPDATE /goniometers/:goniometer
+
+#### Description
+
+Updates the goniometer clinic and name
+
+#### Params
+
+##### URL
+
+- **goniometer:** _(String)_ the uuid of the goniometer to delete
+
+##### Body
+
+- **name:** _(String)_ the name of the goniometer (doesn't need to be unique, only letters,numbers, hyphens, underscores and spaces)
+- **clinic:** _(String)_ the 36 character UUID of the goniometer's clinic (optional, blank = NULL)
+
+#### Responses
+
+##### 204 No Content
+
+```json
+{}
+```
+
+##### 400 Bad Request
+
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ];
+}
+```
+
+---
 
 ## Installation
 

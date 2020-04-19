@@ -1,12 +1,12 @@
 import { validate, validations } from './validations';
 import services from '../services';
 
-async function getClients(req, res, next) {
+async function list(req, res, next) {
   const clientList = await services.listClients();
   return res.json(clientList);
 }
 
-async function createClient(req, res, next) {
+async function create(req, res, next) {
   const params = {
     firstName: req.body.firstName, // a string
     lastName: req.body.firstName, // a string
@@ -30,17 +30,17 @@ async function createClient(req, res, next) {
   res.status(201).json({ id: uuid });
 }
 
-async function getClient(req, res, next) {
+async function get(req, res, next) {
   return res.json({ message: 'not yet implemented' });
 }
 
-async function updateClient(req, res, next) {
+async function update(req, res, next) {
   return res.json({ message: 'not yet implemented' });
 }
 
-async function deleteClient(req, res, next) {
+const remove = async function (req, res, next) {
   return res.json({ message: 'not yet implemented' });
-}
+};
 
 async function getMeasurements(req, res, next) {
   const params = {
@@ -105,11 +105,11 @@ async function deleteMeasurement(req, res, next) {
 }
 
 export default {
-  getClients,
-  createClient,
-  getClient,
-  updateClient,
-  deleteClient,
+  list,
+  create,
+  get,
+  update,
+  remove,
   getMeasurements,
   createMeasurement,
   deleteMeasurement,

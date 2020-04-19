@@ -86,7 +86,7 @@ CREATE TABLE ClinicAccess (
 CREATE TABLE Goniometer (
   id BINARY(16) PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  clinic BINARY(16) NOT NULL,
+  clinic BINARY(16),
   last_used DATETIME,
   -- battery_level INT DEFAULT 100,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

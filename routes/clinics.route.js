@@ -3,10 +3,14 @@ import { clinic } from '../controllers';
 
 const router = express.Router();
 
-router.get('/', clinic.getClinics);
-router.post('/', clinic.createClinic);
-router.get('/:clinic', clinic.getClinic);
-router.put('/:clinic', clinic.updateClinic);
-router.delete('/:clinic', clinic.deleteClinic);
+router.get('/', clinic.list);
+router.post('/', clinic.create);
+router.get('/:clinic', clinic.get);
+router.put('/:clinic', clinic.update);
+router.delete('/:clinic', clinic.remove);
+router.get('/:clinic/goniometers', clinic.getGoniometers);
+router.post('/:clinic/goniometers', clinic.createGoniometer);
+router.put('/:clinic/goniometers/:goniometer', clinic.updateGoniometer);
+router.delete('/:clinic/goniometers/:goniometer', clinic.deleteGoniometer);
 
 export default router;

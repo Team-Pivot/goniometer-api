@@ -1,7 +1,7 @@
 import { validate, validations } from './validations';
 import services from '../services';
 
-async function getClinics(req, res, next) {
+async function list(req, res, next) {
   const params = {
     limit: req.query.limit != null ? parseInt(req.query.limit) : 1000,
     offset: req.query.offset != null ? parseInt(req.query.offset) : 0,
@@ -21,26 +21,66 @@ async function getClinics(req, res, next) {
   return res.json(clinics);
 }
 
-async function createClinic(req, res, next) {
+async function create(req, res, next) {
   return res.json({ message: 'not yet implemented' });
 }
 
-async function getClinic(req, res, next) {
+async function get(req, res, next) {
   return res.json({ message: 'not yet implemented' });
 }
 
-async function updateClinic(req, res, next) {
+async function update(req, res, next) {
   return res.json({ message: 'not yet implemented' });
 }
 
-async function deleteClinic(req, res, next) {
+async function remove(req, res, next) {
+  return res.json({ message: 'not yet implemented' });
+}
+
+async function getGoniometers(req, res, next) {
+  let { search } = req.query;
+  if (search != null && typeof search === 'string' && search.trim().length === 0) {
+    search = undefined; // '' or just whitespace should not search
+  }
+  const params = {
+    clinic: req.params.clinic,
+    search,
+    limit: req.query.limit != null ? parseInt(req.query.limit) : 1000,
+    offset: req.query.offset != null ? parseInt(req.query.offset) : 0,
+  };
+  const errs = validate(params, {
+    clinic: validations.uuid(),
+    search: { type: 'string', length: { maximum: 255 } },
+    limit: validations.int({ presence: false, bounds: [0] }),
+    offset: validations.int({ presence: false, bounds: [0] }),
+  });
+  if (errs != null) {
+    return res.status(400).json({
+      errors: errs,
+    });
+  }
+  const gonList = await services.listGoniometers(params);
+  return res.json(gonList);
+}
+
+async function createGoniometer(req, res, next) {
+  return res.json({ message: 'not yet implemented' });
+}
+async function updateGoniometer(req, res, next) {
+  return res.json({ message: 'not yet implemented' });
+}
+async function deleteGoniometer(req, res, next) {
   return res.json({ message: 'not yet implemented' });
 }
 
 export default {
-  getClinics,
-  createClinic,
-  getClinic,
-  updateClinic,
-  deleteClinic,
+  list,
+  create,
+  get,
+  update,
+  remove,
+  getGoniometers,
+  createGoniometer,
+  updateGoniometer,
+  deleteGoniometer,
 };

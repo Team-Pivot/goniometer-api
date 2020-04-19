@@ -7,7 +7,7 @@ SET @clinicId = uuid();
 
 SET @clientId = uuid();
 
-INSERT INTO pivot_api.Clinic (id, name, street, zipcode, state)
+INSERT INTO Clinic (id, name, street, zipcode, state)
 VALUES (
   UUID_TO_BIN(@clinicId),
   'GT Clinic',
@@ -16,17 +16,17 @@ VALUES (
   'GA'
 );
 
-INSERT INTO pivot_api.Client (id, first_name, last_name, birth_date, clinic)
+INSERT INTO Client (id, first_name, last_name, birth_date, clinic)
 VALUES (
   UUID_TO_BIN(@clientId),
   'Adam',
   'Hayward',
   DATE('1998-06-21'),
-  (SELECT id from Clinic LIMIT 1)
+  UUID_TO_BIN(@clinicId)
 );
 
-INSERT INTO pivot_api.MeasurementType (name)
+INSERT INTO MeasurementType (name)
 VALUES ('flexion'), ('extension');
 
-INSERT INTO pivot_api.JointType (name)
+INSERT INTO JointType (name)
 VALUES ('elbow'), ('knee'), ('shoulder'), ('ankle');
