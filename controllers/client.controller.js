@@ -1,8 +1,8 @@
 import { validate, validations } from './validations';
-import services from '../services';
+import { Client, Measurement } from '../services';
 
 async function list(req, res, next) {
-  const clientList = await services.listClients();
+  const clientList = await Client.list();
   return res.json(clientList);
 }
 
@@ -26,12 +26,26 @@ async function create(req, res, next) {
       errors: errs,
     });
   }
-  const uuid = await services.createClient(params);
-  res.status(201).json({ id: uuid });
+  const uuid = await Client.create(params);
+  return res.status(201).json({ id: uuid });
 }
 
 async function get(req, res, next) {
-  return res.json({ message: 'not yet implemented' });
+  const params = {
+    id: req.params.client,
+  };
+
+  const errs = validate(params, {
+    id: validations.uuid(),
+  });
+
+  if (errs != null) {
+    return res.status(400).json({
+      errors: errs,
+    });
+  }
+  const client = await Client.get(params);
+  return res.json(client);
 }
 
 async function update(req, res, next) {
@@ -44,7 +58,7 @@ const remove = async function (req, res, next) {
 
 async function getMeasurements(req, res, next) {
   const params = {
-    client: req.params.clientId,
+    client: req.params.client,
     dateRange: req.query.dateRange,
     limit: req.query.limit != null ? parseFloat(req.query.limit) : 1000,
     offset: req.query.offset != null ? parseFloat(req.query.offset) : 0,
@@ -66,7 +80,7 @@ async function getMeasurements(req, res, next) {
     });
   }
 
-  const measurements = await services.getMeasurements(params);
+  const measurements = await Measurement.list(params);
   return res.json(measurements);
 }
 
@@ -76,7 +90,7 @@ async function createMeasurement(req, res, next) {
     endAngle: req.body.endAngle != null ? parseFloat(req.body.endAngle) : undefined, // not required, should be a XXX.XX decimal
     jointType: req.body.jointType, // expect a string name that is only alphanumeric, hyphens, or apostrophes
     measurementType: req.body.measurementType, // expect a string name that is only alphanumeric, hyphens, or apostrophes
-    client: req.params.clientId, // expect a string UUID
+    client: req.params.client, // expect a string UUID
     clinic: req.body.clinic, // expect a string UUID
   };
   console.log(params, req.body);
@@ -95,7 +109,7 @@ async function createMeasurement(req, res, next) {
     });
   }
 
-  const uuid = await services.createMeasurement(params);
+  const uuid = await Measurement.create(params);
 
   return res.status(201).json({ id: uuid });
 }

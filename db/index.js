@@ -1,28 +1,15 @@
-import insertMeasurement from './insertMeasurement.db';
-import getClientList from './getClientList.db';
-import queryMeasurements from './queryMeasurements.db';
-import queryGoniometers from './queryGoniometers.db';
-import queryClinics from './queryClinics.db';
-import insertClient from './insertClient.db';
-import insertGoniometer from './insertGoniometer.db';
-import deleteGoniometer from './deleteGoniometer.db';
-import updateGoniometer from './updateGoniometer.db';
+import Client from './client';
+import Goniometer from './goniometer';
+import Measurement from './measurement';
+import Clinic from './clinic';
 
 export {
-  insertMeasurement,
-  getClientList,
-  queryClinics,
-  queryMeasurements,
-  insertClient,
-  queryGoniometers,
-  insertGoniometer,
-  deleteGoniometer,
-  updateGoniometer,
+  Goniometer, Clinic, Measurement, Client,
 };
 
-export const goniometer = {
-  query: queryGoniometers,
-  insert: insertGoniometer,
-  delete: deleteGoniometer,
-  update: updateGoniometer,
+export default {
+  Goniometer,
+  Clinic,
+  Measurement,
+  Client,
 };

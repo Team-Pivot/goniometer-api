@@ -1,10 +1,10 @@
-import { queryMeasurements } from '../db';
+import { Measurement } from '../../db';
 
 export default async function getMeasurements({
   client, dateRange, limit, offset, order,
 }) {
   try {
-    return await queryMeasurements({
+    return await Measurement.query({
       client,
       dateRange,
       limit,

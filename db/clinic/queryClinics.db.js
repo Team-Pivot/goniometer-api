@@ -1,4 +1,4 @@
-import db from './db';
+import db from '../db';
 
 export default async function queryClinics({ limit = 1000, offset = 0 } = {}) {
   const qstr = `
@@ -15,7 +15,8 @@ export default async function queryClinics({ limit = 1000, offset = 0 } = {}) {
   `;
 
   try {
-    return db.pool.promise().query(qstr, [limit, offset]);
+    const [results, fields] = db.pool.promise().query(qstr, [limit, offset]);
+    return results;
   } catch (err) {
     console.error(err);
     throw err;

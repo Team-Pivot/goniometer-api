@@ -1,5 +1,5 @@
 import { validate, validations } from './validations';
-import services from '../services';
+import { Clinic, Goniometer } from '../services';
 
 async function list(req, res, next) {
   const params = {
@@ -16,7 +16,7 @@ async function list(req, res, next) {
     });
   }
 
-  const clinics = await services.listClinics(params);
+  const clinics = await Clinic.list(params);
 
   return res.json(clinics);
 }
@@ -59,7 +59,7 @@ async function getGoniometers(req, res, next) {
       errors: errs,
     });
   }
-  const gonList = await services.listGoniometers(params);
+  const gonList = await Goniometer.list(params);
   return res.json(gonList);
 }
 

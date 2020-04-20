@@ -1,5 +1,5 @@
 import { validate, validations } from './validations';
-import services from '../services';
+import { Goniometer } from '../services';
 
 async function list(req, res, next) {
   const params = {
@@ -16,7 +16,7 @@ async function list(req, res, next) {
     });
   }
 
-  const goniometers = await services.listGoniometers(params);
+  const goniometers = await Goniometer.list(params);
 
   return res.json(goniometers);
 }
@@ -35,7 +35,7 @@ async function create(req, res, next) {
       errors: errs,
     });
   }
-  const uuid = await services.createGoniometer(params);
+  const uuid = await Goniometer.create(params);
   return res.status(201).json({ id: uuid });
 }
 
@@ -59,7 +59,7 @@ async function update(req, res, next) {
       errors: errs,
     });
   }
-  const uuid = await services.updateGoniometer(params);
+  const uuid = await Goniometer.update(params);
   return res.status(204).json();
 }
 
@@ -75,7 +75,7 @@ async function remove(req, res, next) {
       errors: errs,
     });
   }
-  const uuid = await services.removeGoniometer(params);
+  const uuid = await Goniometer.remove(params);
   return res.status(204).json();
 }
 

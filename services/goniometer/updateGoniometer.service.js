@@ -1,8 +1,8 @@
-import { goniometer } from '../db';
+import { Goniometer } from '../../db';
 
 export default async function updateGoniometer({ id, name, clinic }) {
   try {
-    await goniometer.update({
+    await Goniometer.update({
       id,
       name,
       clinic,

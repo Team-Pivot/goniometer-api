@@ -1,8 +1,8 @@
-import { insertGoniometer } from '../db';
+import { Goniometer } from '../../db';
 
 export default async function createGoniometer({ name, clinic }) {
   try {
-    const { id } = await insertGoniometer({
+    const id = await Goniometer.insert({
       name,
       clinic,
     });

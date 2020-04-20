@@ -1,4 +1,4 @@
-import db from './db';
+import db from '../db';
 
 export default async function insertClient({
   firstName, lastName, birthDate, ehrLink, clinic,
@@ -18,9 +18,8 @@ export default async function insertClient({
       .promise()
       .query(qstr, [id, firstName, lastName, birthDate, ehrLink, clinic]);
     if (result.insertId != null) {
-      return { id };
+      return id;
     }
-    console.log(result);
     throw new Error('Insert failed for measurement');
   } catch (err) {
     console.error(err);

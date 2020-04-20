@@ -1,4 +1,4 @@
-import db from './db';
+import db from '../db';
 
 export default async function insertGoniometer({ name, clinic }) {
   const id = await db.getUUID();
@@ -16,9 +16,8 @@ export default async function insertGoniometer({ name, clinic }) {
   console.log(qstr);
   try {
     const [result, fields] = await db.pool.promise().query(qstr, [id, name, clinic]);
-    console.log(result);
     if (result.insertId != null) {
-      return { id };
+      return id;
     }
     console.log(result);
     throw new Error('Insert failed for measurement');

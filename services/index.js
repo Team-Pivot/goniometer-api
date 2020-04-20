@@ -1,32 +1,15 @@
-import createMeasurement from './createMeasurement.service';
-import createClient from './createClient.service';
-import getMeasurements from './getMeasurements.service';
-import listClients from './listClients.service';
-import listClinics from './listClinics.service';
-import listGoniometers from './listGoniometers.service';
-import createGoniometer from './createGoniometer.service';
-import updateGoniometer from './updateGoniometer.service';
-import removeGoniometer from './removeGoniometer.service';
+import Client from './client';
+import Clinic from './clinic';
+import Goniometer from './goniometer';
+import Measurement from './measurement';
 
 export {
-  createClient,
-  createMeasurement,
-  createGoniometer,
-  getMeasurements,
-  listClients,
-  listClinics,
-  listGoniometers,
-  removeGoniometer,
-  updateGoniometer,
+  Client, Clinic, Goniometer, Measurement,
 };
+
 export default {
-  createClient,
-  createGoniometer,
-  createMeasurement,
-  getMeasurements,
-  listClients,
-  listClinics,
-  listGoniometers,
-  removeGoniometer,
-  updateGoniometer,
+  Client,
+  Clinic,
+  Goniometer,
+  Measurement,
 };

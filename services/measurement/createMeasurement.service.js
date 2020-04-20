@@ -1,4 +1,4 @@
-import { insertMeasurement } from '../db';
+import { Measurement } from '../../db';
 
 export default async function createMeasurement({
   angle, // required, should be a XXX.XX decimal
@@ -9,7 +9,7 @@ export default async function createMeasurement({
   clinic, // required, should be valid foreign key to a clinic
 }) {
   try {
-    const { id } = await insertMeasurement({
+    return await Measurement.insert({
       angle, // required, should be a XXX.XX decimal
       endAngle, // not required, should be a XXX.XX decimal
       jointType, // required, should be valid foreign key
@@ -17,7 +17,6 @@ export default async function createMeasurement({
       client, // required, should be valid foreign key to a client
       clinic,
     });
-    return id;
   } catch (err) {
     throw err;
   }

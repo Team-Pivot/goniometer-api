@@ -1,4 +1,4 @@
-import db from './db';
+import db from '../db';
 
 export default async function updateGoniometer({ id, name, clinic }) {
   const qstr = `
@@ -8,13 +8,11 @@ export default async function updateGoniometer({ id, name, clinic }) {
       clinic = UUID_TO_BIN(?)
     WHERE
       id = UUID_TO_BIN(?);`;
-  console.log(qstr);
   try {
     const [result, fields] = await db.pool.promise().query(qstr, [name, clinic, id]);
-    if (result.changedRows > 0) {
+    if (result.affectedRows > 0) {
       return result;
     }
-    console.log(result);
     throw new Error('Update failed for goniometer');
   } catch (err) {
     console.error(err);

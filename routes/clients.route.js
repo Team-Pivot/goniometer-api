@@ -5,11 +5,11 @@ const router = express.Router();
 
 router.get('/', client.list);
 router.post('/', client.create);
-router.get('/:clientId', client.get);
-router.put('/:clientId', client.update);
-router.delete('/:clientId', client.remove);
-router.get('/:clientId/measurements', client.getMeasurements);
-router.post('/:clientId/measurements', client.createMeasurement);
-router.delete('/:clientId/measurements/:measureId', client.deleteMeasurement);
+router.get('/:client', client.get);
+router.put('/:client', client.update);
+router.delete('/:client', client.remove);
+router.get('/:client/measurements', client.getMeasurements);
+router.post('/:client/measurements', client.createMeasurement);
+router.delete('/:client/measurements/:measurement', client.deleteMeasurement);
 
 export default router;

@@ -1,7 +1,6 @@
-import db from './db';
+import db from '../db';
 
 export default async function getClientList({ limit = 1000, offset = 0 } = {}) {
-  console.log('LIMIT:', limit, '\nOFFSET:', offset);
   const qstr = `
     SELECT
       BIN_TO_UUID(id) as id,
@@ -15,9 +14,10 @@ export default async function getClientList({ limit = 1000, offset = 0 } = {}) {
     FROM Client LIMIT ? OFFSET ?;
     `;
   try {
-    return await db.pool.promise().query(qstr, [limit, offset]);
+    const [results, fields] = await db.pool.promise().query(qstr, [limit, offset]);
+    return results;
   } catch (err) {
-    console.error(err)
+    console.error(err);
     throw err;
   }
 }
