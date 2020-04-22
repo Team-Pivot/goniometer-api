@@ -1,7 +1,7 @@
 import createMeasurement from './createMeasurement.service';
-import getMeasurements from './getMeasurements.service';
+import queryMeasurements from './queryMeasurements.service';
 
 export default {
   create: createMeasurement,
-  get: getMeasurements,
+  query: queryMeasurements,
 };

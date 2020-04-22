@@ -9,7 +9,7 @@ async function list(req, res, next) {
 async function create(req, res, next) {
   const params = {
     firstName: req.body.firstName, // a string
-    lastName: req.body.firstName, // a string
+    lastName: req.body.lastName, // a string
     birthDate: req.body.birthDate, // in form MM/DD/YYYY or MM-DD-YYYY
     ehrLink: req.body.ehrLink, // a url
     clinic: req.body.clinic, // a string uuid
@@ -49,12 +49,44 @@ async function get(req, res, next) {
 }
 
 async function update(req, res, next) {
-  return res.json({ message: 'not yet implemented' });
+  const params = {
+    id: req.params.client,
+    firstName: req.body.firstName, // a string
+    lastName: req.body.lastName, // a string
+    birthDate: req.body.birthDate, // in form MM/DD/YYYY or MM-DD-YYYY
+    ehrLink: req.body.ehrLink, // a url
+    clinic: req.body.clinic, // a string uuid
+  };
+  const errs = validate(params, {
+    id: validations.uuid(),
+    firstName: { presence: true, type: 'string' },
+    lastName: { presence: true, type: 'string' },
+    birthDate: validations.dateString(),
+    ehrLink: { type: 'string' },
+    clinic: validations.uuid(),
+  });
+  if (errs != null) {
+    return res.status(400).json({
+      errors: errs,
+    });
+  }
+  await Client.update(params);
+  return res.status(204).json();
 }
 
-const remove = async function (req, res, next) {
-  return res.json({ message: 'not yet implemented' });
-};
+async function remove(req, res, next) {
+  const params = {
+    id: req.params.client,
+  };
+  const errs = validate(params, { id: validations.uuid() });
+  if (errs != null) {
+    return res.status(400).json({
+      errors: errs,
+    });
+  }
+  await Client.remove(params);
+  return res.status(204).json({});
+}
 
 async function getMeasurements(req, res, next) {
   const params = {
@@ -80,7 +112,7 @@ async function getMeasurements(req, res, next) {
     });
   }
 
-  const measurements = await Measurement.list(params);
+  const measurements = await Measurement.query(params);
   return res.json(measurements);
 }
 

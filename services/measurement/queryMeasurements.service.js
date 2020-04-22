@@ -1,6 +1,6 @@
 import { Measurement } from '../../db';
 
-export default async function getMeasurements({
+export default async function queryMeasurements({
   client, dateRange, limit, offset, order,
 }) {
   try {

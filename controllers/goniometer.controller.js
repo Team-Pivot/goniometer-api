@@ -28,7 +28,7 @@ async function create(req, res, next) {
   };
   const errs = validate(params, {
     clinic: validations.uuid({ presence: false }),
-    name: { presence: true, type: 'string', format: '[\\w\\d-_ ]+' },
+    name: validations.simpleName({ presence: true }),
   });
   if (errs != null) {
     return res.status(400).json({
@@ -52,7 +52,7 @@ async function update(req, res, next) {
   const errs = validate(params, {
     id: validations.uuid(),
     clinic: validations.uuid({ presence: false }),
-    name: { presence: true, type: 'string', format: '[\\w\\d-_ ]+' },
+    name: validations.simpleName(),
   });
   if (errs != null) {
     return res.status(400).json({

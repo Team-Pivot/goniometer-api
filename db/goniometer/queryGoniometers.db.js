@@ -1,9 +1,17 @@
 import db from '../db';
 
 export default async function queryGoniometers({
-  search, clinic, limit = 1000, offset = 0,
+  id,
+  search,
+  clinic,
+  limit = 1000,
+  offset = 0,
 } = {}) {
   const wheres = [];
+
+  if (id != null) {
+    wheres.push(`id = UUID_TO_BIN(${db.escape(id)})`);
+  }
 
   if (search != null) {
     wheres.push(`name LIKE ${db.escape(search)}`);
@@ -27,7 +35,7 @@ export default async function queryGoniometers({
   `;
 
   try {
-    const [results, fields] = db.pool.promise().query(qstr, [limit, offset]);
+    const [results, fields] = await db.pool.promise().query(qstr, [limit, offset]);
     return results;
   } catch (err) {
     console.error(err);

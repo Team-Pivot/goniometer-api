@@ -1,31 +1,28 @@
 # Pivot API
-
 Exposes routes used to manage the connected goniometer system.
 
-## API Reference
-
 ## Predefined types
-
 **Measurement types:** 'flexion', 'extension'
 **Joint types:** 'elbow', 'knee', 'shoulder'
 
+## API Reference
+1. [Clients](#clients-routes)
+1. [Clinics](#clinics-routes)
+1. [Goniometer](#goniometers-routes)
+
+
+## Clients Routes
 ### GET /clients
-
 #### Description
-
 Gets a list of clients
 
 #### Params
-
 ##### Query
-
 - **limit:** _(Integer)_ How many clients to pull (default 1000)
 - **offset:** _(Integer)_ The index from which to start pulling items (default 0)
 
 #### Responses
-
 ##### 200 Ok
-
 ```js
 [
   {
@@ -39,16 +36,13 @@ Gets a list of clients
 ];
 ```
 
+
 ### POST /clients
-
 #### Description
-
 Create a new client
 
 #### Params
-
 ##### Body
-
 - **firstName:** _(Integer)_ How many clients to pull (default 1000)
 - **lastName:** _(Integer)_ The index from which to start pulling items (default 0)
 - **birstDate:** _(Integer)_ The index from which to start pulling items (default 0)
@@ -56,9 +50,7 @@ Create a new client
 - **ehrlink:** _(Integer)_ A valid url link to an endpoint resource (not required)
 
 #### Responses
-
 ##### 200 Ok
-
 ```js
 [
   {
@@ -72,28 +64,58 @@ Create a new client
 ];
 ```
 
-### GET /clients/:clientId/measurements
 
+### PUT /clients/:client
 #### Description
+Updates a client
 
+#### Params
+##### URL
+- **client** _(String)_ the 36 character UUID of the client to update
+
+##### Body
+- **firstName:** _(Integer)_ How many clients to pull (default 1000)
+- **lastName:** _(Integer)_ The index from which to start pulling items (default 0)
+- **birstDate:** _(Integer)_ The index from which to start pulling items (default 0)
+- **clinic:** _(Integer)_ The clinic at which to add the client (default 0)
+- **ehrlink:** _(Integer)_ A valid url link to an endpoint resource (not required)
+
+#### Responses
+##### 204 No Content
+```json
+{}
+```
+
+
+### DELETE /clients/:clientId
+#### Description
+Deletes a given client
+#### Params
+##### URL
+- **client** _(String)_ the 36 character UUID of the client to update
+
+#### Responses
+##### 204 No Content
+```json
+{}
+```
+
+
+### GET /clients/:clientId/measurements
+#### Description
 Gets a list of measurements for a given client
 
 #### Params
-
 ##### URL
-
-- **clientId:** the 36 character UUID of the client
+- **clientId:** _(String)_ the 36 character UUID of the client
 
 ##### Query
-
 - **dateRange:** _(String[2])_ an upper and lower bound date range in ISO format _(e.g. ["2020-04-13T23:10:01.000Z"])_
 - **limit:** _(Integer)_ How many items to pull (default 1000)
 - **offset:** _(Integer)_ The index from which to start pulling items (default 0)
 
 #### Responses
-
 ##### 200 Ok
-
 ```js
 [
   {
@@ -110,9 +132,7 @@ Gets a list of measurements for a given client
   // ...
 ];
 ```
-
 ##### 400 Bad Request
-
 ```js
 {
   errors: [
@@ -121,18 +141,14 @@ Gets a list of measurements for a given client
 }
 ```
 
-### POST /clients/:clientId/measurements
 
+### POST /clients/:client/measurements
 #### Description
-
 #### Params
-
 ##### URL
-
-- **clientId:** the 36 character UUID of the client
+- **client:** the 36 character UUID of the client
 
 ##### Body
-
 - **clinic:** _(String)_ the 36 character UUID of the clinic that the measurement is taken at
 - **angle:** _(Decimal)_ the angle of the measurement
 - **endAngle:** _(Decimal)_ the second angle in a dynamic measurement
@@ -140,17 +156,13 @@ Gets a list of measurements for a given client
 - **measurementType:** _(String)_ one of the predefined types given
 
 #### Responses
-
 ##### 201 Resource Created
-
 ```js
 {
   id: '12345678-1234-1234-1234-1234567890ab', // the uuid of the created measurement
 }
 ```
-
 ##### 400 Bad Request
-
 ```js
 {
   errors: [
@@ -159,20 +171,17 @@ Gets a list of measurements for a given client
 }
 ```
 
-### GET /clinics/
 
+## Clinics Routes
+### GET /clinics
 #### Description
-
 Gets a list of all clinics
 
 #### Params
-
 **_N/A_**
 
 #### Responses
-
 ##### 200 Resource Created
-
 ```js
 [
   {
@@ -187,9 +196,7 @@ Gets a list of all clinics
   // ...
 ];
 ```
-
 ##### 400 Bad Request
-
 ```js
 {
   errors: [
@@ -198,23 +205,125 @@ Gets a list of all clinics
 }
 ```
 
-### GET /clinics/:clinic/goniometers
 
+### POST /clinics
 #### Description
+#### Params
+##### Body
+- **name** _(String)_ The name of the clinic,
+- **street** _(String)_ The street address of the clinic,
+- **zipcode** _(String)_ A 5 digit zipcode,
+- **state** _(String)_ A two character state representation
+
+#### Responses
+##### 201 Resource Created
+```js
+{
+  id: "c8dd9a68-8265-11ea-898a-448a5b898492"
+}
+```
+##### 400 Bad Request
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ];
+}
+```
+
+### GET /clinics/:clinic
+#### Description
+Gets the specific clinic's information **Not yet implemented**
 
 #### Params
-
 ##### URL
+- **clinic:** the 36 character UUID of the clinic
 
+#### Responses
+##### 200 Ok
+```js
+{
+  id: "c8dd9a68-8265-11ea-898a-448a5b898492",
+  name: "GT Clinic",
+  street: "200 Techwood Dr.",
+  zipcode: "30313",
+  state: "GA",
+  createdAt: "2020-04-19T17:47:06.000Z",
+  updatedAt: "2020-04-19T17:47:06.000Z"
+}
+```
+##### 400 Bad Request
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ];
+}
+```
+
+### PUT /clinics/:clinic
+#### Description
+Updates clinic information
+#### Params
+##### URL
+- **clinic:** the 36 character UUID of the clinic
+
+##### Body
+- **name** _(String)_ The name of the clinic,
+- **street** _(String)_ The street address of the clinic,
+- **zipcode** _(String)_ A 5 digit zipcode,
+- **state** _(String)_ A two character state representation
+
+#### Responses
+##### 204 No Content
+```js
+{}
+```
+##### 400 Bad Request
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ]
+}
+```
+
+### DELETE /clinics/:clinic
+#### Description
+Deletes the clinic
+#### Params
+##### URL
+- **clinic:** the 36 character UUID of the clinic
+
+#### Responses
+##### 204 No Content
+```js
+{}
+```
+##### 400 Bad Request
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ]
+}
+```
+
+
+### GET /clinics/:clinic/goniometers
+#### Description
+Get all goniometers at a given clinic
+#### Params
+##### URL
 - **clinic:** _(String)_ the 36 character UUID of the clinic that the measurement is taken at
+
+##### Query
 - **search:** _(String)_ a string to match to a goniometer name
 - **limit:** _(Integer)_ How many items to pull (default 1000)
 - **offset:** _(Integer)_ The index from which to start pulling items (default 0)
 
 #### Responses
-
 ##### 200 Resource Created
-
 ```js
 [
   {
@@ -228,9 +337,7 @@ Gets a list of all clinics
   // ...
 ];
 ```
-
 ##### 400 Bad Request
-
 ```js
 {
   errors: [
@@ -239,21 +346,95 @@ Gets a list of all clinics
 }
 ```
 
-### GET /goniometers
 
+### POST /clinics/:clinic/goniometers
 #### Description
+Registers an existing goniometer to the clinic (will NOT create a new goniometer). Fails if the goniometer is registered to a different clinic, or if the given goniometer does not exist.
 
+#### Params
+##### URL
+- **clinic** _(String)_ the 36 character UUID of the clinic
+
+##### Body
+- **goniometer** _(String)_ the 36 character UUID of the goniometer
+
+#### Responses
+##### 204 No Content
+```js
+{}
+```
+
+##### 400 Bad Request
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ]
+}
+```
+
+### UPDATE /clinics/:clinic/goniometers/:goniometer
+#### Description
+Allows updating of the clinic's goniometer name (but not assigned clinic).
+
+#### Params
+##### URL
+- **clinic** _(String)_ the 36 character UUID of the clinic
+- **goniometer** _(String)_ the 36 character UUID of the goniometer
+
+##### Body
+- **name** _(String)_ the name of the goniometer
+
+#### Responses
+##### 204 No Content
+```js
+{}
+```
+##### 400 Bad Request
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ]
+}
+```
+
+### DELETE /clinics/:clinic/goniometers/:goniometer
+#### Description
+Unregisters the goniometer from the clinic (but does not delete it)
+
+#### Params
+##### URL
+- **clinic** _(String)_ the 36 character UUID of the clinic
+- **goniometer** _(String)_ the 36 character UUID of the goniometer
+
+#### Responses
+##### 204 No Content
+```js
+{}
+```
+##### 400 Bad Request
+```js
+{
+  errors: [
+    // ... list of formatting errors
+  ]
+}
+```
+
+
+## Goniometers Routes
+
+### GET /goniometers
+#### Description
 Gets a list of all clinics
 
 #### Params
-
 - **limit:** _(Integer)_ How many items to pull (default 1000)
 - **offset:** _(Integer)_ The index from which to start pulling items (default 0)
 
 #### Responses
-
 ##### 200 Ok
-
 ```js
 [
   {
@@ -267,9 +448,7 @@ Gets a list of all clinics
   // ...
 ];
 ```
-
 ##### 400 Bad Request
-
 ```js
 {
   errors: [
@@ -278,31 +457,24 @@ Gets a list of all clinics
 }
 ```
 
+
 ### POST /goniometers
-
 #### Description
-
 Gets a list of all clinics
 
 #### Params
-
 ##### Body
-
 - **name:** _(String)_ the name of the goniometer (doesn't need to be unique, only letters,numbers, hyphens, underscores and spaces)
 - **clinic:** _(String)_ the 36 character UUID of the goniometer's clinic (optional)
 
 #### Responses
-
 ##### 201 Resource Created
-
 ```js
 {
   id: '16220219-826a-11ea-898a-448a5b898492',
 }
 ```
-
 ##### 400 Bad Request
-
 ```js
 {
   errors: [
@@ -311,28 +483,21 @@ Gets a list of all clinics
 }
 ```
 
+
 ### DELETE /goniometers/:goniometer
-
 #### Description
-
 Deletes the given goniometer. Fails if the goniometer does not exist
 
 #### Params
-
 ##### URL
-
 - **goniometer:** _(String)_ the uuid of the goniometer to delete
 
 #### Responses
-
 ##### 204 No Content
-
 ```json
 {}
 ```
-
 ##### 400 Bad Request
-
 ```js
 {
   errors: [
@@ -341,33 +506,25 @@ Deletes the given goniometer. Fails if the goniometer does not exist
 }
 ```
 
+
 ### UPDATE /goniometers/:goniometer
-
 #### Description
-
 Updates the goniometer clinic and name
 
 #### Params
-
 ##### URL
-
 - **goniometer:** _(String)_ the uuid of the goniometer to delete
 
 ##### Body
-
 - **name:** _(String)_ the name of the goniometer (doesn't need to be unique, only letters,numbers, hyphens, underscores and spaces)
 - **clinic:** _(String)_ the 36 character UUID of the goniometer's clinic (optional, blank = NULL)
 
 #### Responses
-
 ##### 204 No Content
-
 ```json
 {}
 ```
-
 ##### 400 Bad Request
-
 ```js
 {
   errors: [
@@ -375,11 +532,9 @@ Updates the goniometer clinic and name
   ];
 }
 ```
-
 ---
 
 ## Installation
-
 In order to use this api, you should have node v12+ running on your system, as well as a MySQL v8 database running. If you need to set up node, you can follow this [install node with nvm](https://nodesource.com/blog/installing-node-js-tutorial-using-nvm-on-mac-os-x-and-ubuntu/) tutorial. To install MySQL version 8, follow this [MySQL 8.0 installation](https://dev.mysql.com/doc/refman/8.0/en/installing.html) tutorial.
 
 Once you have both installed and configured, just clone this repository onto your system and do the following in the project's root folder:

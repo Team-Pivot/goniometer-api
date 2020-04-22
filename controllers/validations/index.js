@@ -5,6 +5,10 @@ import measurementTypes from './mTypes.validation';
 import int from './int.validation';
 import isoTime from './isoTime.validation';
 import dateString from './dateString.validation';
+import simpleName from './simpleName.validation';
+import street from './street.validation';
+import zipcode from './zipcode.validation';
+import state from './state.validation';
 
 _validate.validators.check = function (value, { fn }, key, attributes) {
   return fn(value);
@@ -17,6 +21,10 @@ export const validations = {
   int,
   isoTime,
   dateString,
+  simpleName,
+  street,
+  zipcode,
+  state,
 };
 
 export const validate = _validate;
