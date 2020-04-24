@@ -1,4 +1,5 @@
 import db from '../db';
+import { Exception, SQLCodes } from '../../utils';
 
 export default async function updateGoniometer({ id, name, clinic }) {
   const qstr = `
@@ -13,9 +14,11 @@ export default async function updateGoniometer({ id, name, clinic }) {
     if (result.affectedRows > 0) {
       return result;
     }
-    throw new Error('Update failed for goniometer');
+    throw new Exception(500, 'Update failed for goniometer');
   } catch (err) {
-    console.error(err);
+    if (SQLCodes.isFkError(err)) {
+      throw new Exception(404, 'Clinic not found');
+    }
     throw err;
   }
 }

@@ -8,16 +8,12 @@ export default async function createMeasurement({
   client, // required, should be valid foreign key to a client
   clinic, // required, should be valid foreign key to a clinic
 }) {
-  try {
-    return await Measurement.insert({
-      angle, // required, should be a XXX.XX decimal
-      endAngle, // not required, should be a XXX.XX decimal
-      jointType, // required, should be valid foreign key
-      measurementType, // required, should be valid foreign key
-      client, // required, should be valid foreign key to a client
-      clinic,
-    });
-  } catch (err) {
-    throw err;
-  }
+  return Measurement.insert({
+    angle, // required, should be a XXX.XX decimal
+    endAngle, // not required, should be a XXX.XX decimal
+    jointType, // required, should be valid foreign key
+    measurementType, // required, should be valid foreign key
+    client, // required, should be valid foreign key to a client
+    clinic,
+  });
 }

@@ -1,4 +1,5 @@
 import db from '../db';
+import { Exception, SQLCodes } from '../../utils';
 
 export default async function queryGoniometers({
   id,
@@ -38,7 +39,6 @@ export default async function queryGoniometers({
     const [results, fields] = await db.pool.promise().query(qstr, [limit, offset]);
     return results;
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }

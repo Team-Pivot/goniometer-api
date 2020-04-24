@@ -1,4 +1,5 @@
 import db from '../db';
+import { Exception } from '../../utils';
 
 export default async function updateClient({
   id, name, street, zipcode, state,
@@ -19,9 +20,8 @@ export default async function updateClient({
     if (result.affectedRows > 0) {
       return result;
     }
-    throw new Error('Update failed for clinic');
+    throw new Exception('Update failed for clinic');
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }

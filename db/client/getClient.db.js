@@ -1,4 +1,5 @@
 import db from '../db';
+import { Exception } from '../../utils';
 
 export default async function getClientList({ id } = {}) {
   const qstr = `
@@ -19,10 +20,8 @@ export default async function getClientList({ id } = {}) {
     if (results.length > 0) {
       return results[0];
     }
-    console.log(results);
-    throw new Error('Failed to get client');
+    throw new Exception('Failed to get client', 404);
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }

@@ -1,4 +1,5 @@
 import db from '../db';
+import { Exception, SQLCodes } from '../../utils';
 
 export default async function insertMeasurement({
   angle, // required, should be a XXX.XX decimal
@@ -26,10 +27,8 @@ export default async function insertMeasurement({
     if (result.insertId != null) {
       return id;
     }
-    console.log(result);
-    throw new Error('Insert failed for measurement');
+    throw new Exception('Insert failed for measurement');
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }

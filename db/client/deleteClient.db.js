@@ -1,4 +1,5 @@
 import db from '../db';
+import { Exception, SQLCodes } from '../../utils';
 
 export default async function deleteClient({ id } = {}) {
   const qstr = `
@@ -11,9 +12,11 @@ export default async function deleteClient({ id } = {}) {
     if (results.affectedRows > 0) {
       return results;
     }
-    throw new Error('Failed to delete client');
+    if (SQLCodes.isFkError(err)) {
+      throw new Exception(404, 'Client by given id not found');
+    }
+    throw new Exception(500, 'Failed to delete client');
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }

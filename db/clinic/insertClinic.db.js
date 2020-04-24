@@ -1,4 +1,5 @@
 import db from '../db';
+import { Exception } from '../../utils';
 
 export default async function insertClient({
   name, street, zipcode, state,
@@ -19,9 +20,8 @@ export default async function insertClient({
     if (result.insertId != null) {
       return id;
     }
-    throw new Error('Insert failed for measurement');
+    throw new Exception('Insert failed for measurement');
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }

@@ -1,4 +1,5 @@
 import _validate from 'validate.js';
+import { Exception } from '../../utils';
 import angle from './angle.validation';
 import uuid from './uuid.validation';
 import measurementTypes from './mTypes.validation';
@@ -27,4 +28,9 @@ export const validations = {
   state,
 };
 
-export const validate = _validate;
+export const validate = (...params) => {
+  const errors = _validate(...params);
+  if (errors != null) {
+    throw new Exception(400, errors);
+  }
+};

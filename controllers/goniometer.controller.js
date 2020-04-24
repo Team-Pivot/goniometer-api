@@ -26,21 +26,20 @@ async function create(req, res, next) {
     clinic: req.body.clinic,
     name: req.body.name,
   };
-  const errs = validate(params, {
-    clinic: validations.uuid({ presence: false }),
-    name: validations.simpleName({ presence: true }),
-  });
-  if (errs != null) {
-    return res.status(400).json({
-      errors: errs,
+  try {
+    validate(params, {
+      clinic: validations.uuid({ presence: false }),
+      name: validations.simpleName({ presence: true }),
     });
+    const uuid = await Goniometer.create(params);
+    return res.status(201).json({ id: uuid });
+  } catch (err) {
+    next(err);
   }
-  const uuid = await Goniometer.create(params);
-  return res.status(201).json({ id: uuid });
 }
 
 async function get(req, res, next) {
-  return res.json({ message: 'not yet implemented' });
+  return res.status(501).json({ message: 'not yet implemented' });
 }
 
 async function update(req, res, next) {
@@ -49,34 +48,32 @@ async function update(req, res, next) {
     clinic: req.body.clinic,
     name: req.body.name,
   };
-  const errs = validate(params, {
-    id: validations.uuid(),
-    clinic: validations.uuid({ presence: false }),
-    name: validations.simpleName(),
-  });
-  if (errs != null) {
-    return res.status(400).json({
-      errors: errs,
+  try {
+    validate(params, {
+      id: validations.uuid(),
+      clinic: validations.uuid({ presence: false }),
+      name: validations.simpleName(),
     });
+    const uuid = await Goniometer.update(params);
+    return res.status(204).json();
+  } catch (err) {
+    next(err);
   }
-  const uuid = await Goniometer.update(params);
-  return res.status(204).json();
 }
 
 async function remove(req, res, next) {
   const params = {
     id: req.params.goniometer,
   };
-  const errs = validate(params, {
-    id: validations.uuid(),
-  });
-  if (errs != null) {
-    return res.status(400).json({
-      errors: errs,
+  try {
+    validate(params, {
+      id: validations.uuid(),
     });
+    const uuid = await Goniometer.remove(params);
+    return res.status(204).json();
+  } catch (err) {
+    next(err);
   }
-  const uuid = await Goniometer.remove(params);
-  return res.status(204).json();
 }
 
 export default {

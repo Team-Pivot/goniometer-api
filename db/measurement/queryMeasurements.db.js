@@ -41,7 +41,6 @@ export default async function queryMeasurements({
     const [result, fields] = await db.pool.promise().query(qstr, [limit, offset]);
     return result;
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }

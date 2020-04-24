@@ -1,4 +1,5 @@
 import db from '../db';
+import { Exception } from '../../utils';
 
 export default async function updateClient({ id }) {
   const qstr = `
@@ -10,9 +11,8 @@ export default async function updateClient({ id }) {
     if (result.affectedRows > 0) {
       return result;
     }
-    throw new Error('Delete failed for clinic');
+    throw new Exception('Delete failed for clinic');
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }

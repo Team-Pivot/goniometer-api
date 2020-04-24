@@ -1,4 +1,5 @@
 import db from '../db';
+import { Exception } from '../../utils';
 
 export default async function deleteGoniometer({ id } = {}) {
   const qstr = `
@@ -8,13 +9,12 @@ export default async function deleteGoniometer({ id } = {}) {
   `;
 
   try {
-    const [results] = db.pool.promise().query(qstr, [id]);
+    const [results] = await db.pool.promise().query(qstr, [id]);
     if (results.affectedRows < 1) {
-      throw new Error('Delete Failed');
+      throw new Exception(404, 'Failed to delete goniometer. Uuid is likely invalid');
     }
     return results;
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }

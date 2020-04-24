@@ -2,8 +2,12 @@ import { validate, validations } from './validations';
 import { Client, Measurement } from '../services';
 
 async function list(req, res, next) {
-  const clientList = await Client.list();
-  return res.json(clientList);
+  try {
+    const clientList = await Client.list();
+    return res.json(clientList);
+  } catch (err) {
+    next(err);
+  }
 }
 
 async function create(req, res, next) {
@@ -14,38 +18,33 @@ async function create(req, res, next) {
     ehrLink: req.body.ehrLink, // a url
     clinic: req.body.clinic, // a string uuid
   };
-  const errs = validate(params, {
-    firstName: { presence: true, type: 'string' },
-    lastName: { presence: true, type: 'string' },
-    birthDate: validations.dateString(),
-    clinic: validations.uuid(),
-  });
-
-  if (errs != null) {
-    return res.status(400).json({
-      errors: errs,
+  try {
+    validate(params, {
+      firstName: { presence: true, type: 'string' },
+      lastName: { presence: true, type: 'string' },
+      birthDate: validations.dateString(),
+      clinic: validations.uuid(),
     });
+    const uuid = await Client.create(params);
+    return res.status(201).json({ id: uuid });
+  } catch (err) {
+    next(err);
   }
-  const uuid = await Client.create(params);
-  return res.status(201).json({ id: uuid });
 }
 
 async function get(req, res, next) {
   const params = {
     id: req.params.client,
   };
-
-  const errs = validate(params, {
-    id: validations.uuid(),
-  });
-
-  if (errs != null) {
-    return res.status(400).json({
-      errors: errs,
+  try {
+    validate(params, {
+      id: validations.uuid(),
     });
+    const client = await Client.get(params);
+    return res.json(client);
+  } catch (err) {
+    next(err);
   }
-  const client = await Client.get(params);
-  return res.json(client);
 }
 
 async function update(req, res, next) {
@@ -57,35 +56,34 @@ async function update(req, res, next) {
     ehrLink: req.body.ehrLink, // a url
     clinic: req.body.clinic, // a string uuid
   };
-  const errs = validate(params, {
-    id: validations.uuid(),
-    firstName: { presence: true, type: 'string' },
-    lastName: { presence: true, type: 'string' },
-    birthDate: validations.dateString(),
-    ehrLink: { type: 'string' },
-    clinic: validations.uuid(),
-  });
-  if (errs != null) {
-    return res.status(400).json({
-      errors: errs,
+
+  try {
+    validate(params, {
+      id: validations.uuid(),
+      firstName: { presence: true, type: 'string' },
+      lastName: { presence: true, type: 'string' },
+      birthDate: validations.dateString(),
+      ehrLink: { type: 'string' },
+      clinic: validations.uuid(),
     });
+    await Client.update(params);
+    return res.status(204).json();
+  } catch (err) {
+    next(err);
   }
-  await Client.update(params);
-  return res.status(204).json();
 }
 
 async function remove(req, res, next) {
   const params = {
     id: req.params.client,
   };
-  const errs = validate(params, { id: validations.uuid() });
-  if (errs != null) {
-    return res.status(400).json({
-      errors: errs,
-    });
+  try {
+    validate(params, { id: validations.uuid() });
+    await Client.remove(params);
+    return res.status(204).json({});
+  } catch (err) {
+    next(err);
   }
-  await Client.remove(params);
-  return res.status(204).json({});
 }
 
 async function getMeasurements(req, res, next) {
@@ -96,24 +94,21 @@ async function getMeasurements(req, res, next) {
     offset: req.query.offset != null ? parseFloat(req.query.offset) : 0,
     order: req.query.order,
   };
-  const errs = validate(params, {
-    client: validations.uuid(),
-    dateRange: { type: 'array', length: { maximum: 2 } },
-    'dateRange.0': validations.isoTime({ presence: false }),
-    'dateRange.1': validations.isoTime({ presence: false }),
-    limit: validations.int({ bounds: [0] }),
-    offset: validations.int({ bounds: [0] }),
-    order: { type: 'array' },
-  });
-
-  if (errs) {
-    return res.status(400).json({
-      errors: errs,
+  try {
+    validate(params, {
+      client: validations.uuid(),
+      dateRange: { type: 'array', length: { maximum: 2 } },
+      'dateRange.0': validations.isoTime({ presence: false }),
+      'dateRange.1': validations.isoTime({ presence: false }),
+      limit: validations.int({ bounds: [0] }),
+      offset: validations.int({ bounds: [0] }),
+      order: { type: 'array' },
     });
+    const measurements = await Measurement.query(params);
+    return res.json(measurements);
+  } catch (err) {
+    next(err);
   }
-
-  const measurements = await Measurement.query(params);
-  return res.json(measurements);
 }
 
 async function createMeasurement(req, res, next) {
@@ -125,29 +120,24 @@ async function createMeasurement(req, res, next) {
     client: req.params.client, // expect a string UUID
     clinic: req.body.clinic, // expect a string UUID
   };
-  console.log(params, req.body);
-  const formattingErrors = validate(params, {
-    angle: validations.angle(),
-    endAngle: validations.angle({ presence: false }),
-    jointType: validations.measurementTypes(),
-    measurementType: validations.measurementTypes(),
-    clinic: validations.uuid(),
-    client: validations.uuid(),
-  });
-
-  if (formattingErrors != undefined) {
-    return res.status(400).json({
-      errors: formattingErrors,
+  try {
+    validate(params, {
+      angle: validations.angle(),
+      endAngle: validations.angle({ presence: false }),
+      jointType: validations.measurementTypes(),
+      measurementType: validations.measurementTypes(),
+      clinic: validations.uuid(),
+      client: validations.uuid(),
     });
+    const uuid = await Measurement.create(params);
+    return res.status(201).json({ id: uuid });
+  } catch (err) {
+    next(err);
   }
-
-  const uuid = await Measurement.create(params);
-
-  return res.status(201).json({ id: uuid });
 }
 
 async function deleteMeasurement(req, res, next) {
-  return res.json({ message: 'not yet implemented' });
+  return res.status(501).json({ message: 'not yet implemented' });
 }
 
 export default {

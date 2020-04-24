@@ -8,16 +8,12 @@ export default async function updateClient({
   ehrLink,
   clinic,
 }) {
-  try {
-    await Client.update({
-      id,
-      firstName,
-      lastName,
-      birthDate: new Date(birthDate),
-      ehrLink,
-      clinic,
-    });
-  } catch (err) {
-    throw err;
-  }
+  await Client.update({
+    id,
+    firstName,
+    lastName,
+    birthDate: new Date(birthDate),
+    ehrLink,
+    clinic,
+  });
 }

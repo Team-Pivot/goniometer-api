@@ -17,7 +17,6 @@ export default async function queryClinics({ limit = 1000, offset = 0 } = {}) {
     const [results, fields] = await db.pool.promise().query(qstr, [limit, offset]);
     return results;
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }

@@ -1,4 +1,5 @@
 import db from '../db';
+import { Exception } from '../../utils';
 
 export default async function updateClient({
   id,
@@ -25,9 +26,8 @@ export default async function updateClient({
     if (result.affectedRows > 0) {
       return result;
     }
-    throw new Error('Update failed for client');
+    throw new Exception('Update failed for client');
   } catch (err) {
-    console.error(err);
     throw err;
   }
 }
