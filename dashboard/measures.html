@@ -1,0 +1,42 @@
+<DOCTYPE! html>
+<html>
+<link rel ="stylesheet" href="dashboardStyle.css">
+
+	<!-- Header Bar -->
+	<div class="rectangle">
+		<h1 class ="clinicName">[Clinic Name Placeholder]</h1>
+		<h2 class ="home" id="home"> Dashboard</h2>
+		<h2 class="measures" id="measures">View Measurements</h2>
+		<h2 class="logout" id="logout">Logout</h2>
+	</div>
+
+	<!-- script that controls the actions for the header bar -->
+	<script type="text/javascript">
+		var logout = document.getElementById("logout");
+		logout.onclick = function() {
+			window.location.href = "login.html";
+		}
+
+		var measure = document.getElementById("measures");
+		measure.onclick = function() {
+			window.location.href = "measures.html";
+		}
+
+		var home = document.getElementById("home");
+		home.onclick = function() {
+			window.location.href = "dashboard.html";
+		}
+	</script>
+
+	<!-- Welcome Bar -->
+	<div>
+		<header class="welcome">
+			List of Most Recent Measurements
+		</header>
+		<div class="rectangle2"></div>
+	</div>
+
+	<!-- each measurement is listed as an individidual <p> below here -->
+
+
+</html>

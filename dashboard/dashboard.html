@@ -5,14 +5,26 @@
 	<!-- Header Bar -->
 	<div class="rectangle">
 		<h1 class ="clinicName">[Clinic Name Placeholder]</h1>
+		<h2 class ="home" id="home"> Dashboard</h2>
+		<h2 class="measures" id="measures">View Measurements</h2>
 		<h2 class="logout" id="logout">Logout</h2>
 	</div>
 
-	<!-- script that returns to login page -->
+	<!-- script that controls the actions for the header bar -->
 	<script type="text/javascript">
 		var logout = document.getElementById("logout");
 		logout.onclick = function() {
 			window.location.href = "login.html";
+		}
+
+		var measure = document.getElementById("measures");
+		measure.onclick = function() {
+			window.location.href = "measures.html";
+		}
+
+		var home = document.getElementById("home");
+		home.onclick = function() {
+			window.location.href = "dashboard.html";
 		}
 	</script>
 
@@ -120,7 +132,7 @@
 			</div>
 		</div>
 
-		<!-- This Script opens the add vgoniomheter pop up formh -->
+		<!-- This Script opens the add goniometer pop up form -->
 		<script>
 			var modal = document.getElementById("gonPop");
 			var btn =  document.getElementById("addGon");
@@ -139,7 +151,7 @@
 			Manage Clinic Information
 		</h1>
 
-		<button class="clinicEdit">
+		<button class="clinicEdit" id="clinicEdit">
 			Edit
 		</button>
 
@@ -164,13 +176,45 @@
 		</div>
 
 
+		<!-- This is the pop up window for editing the clinic information -->
+
+		<div class="clinicPop" id="clinicPop">
+			<div class="clinicPopCon">
+				<h2 class="popTitle">
+					Edit Clinic Information
+				</h2>
+				<form>
+					<label for="clinname">Update Clinic Name</label>
+					<input type="text" id="clinname" name="clinname" style="margin-top:30px;"> <br>
+
+					<label for="address">Update Clinic Address</label>
+					<input type="text" id="address" name="address">
+
+					<input type="submit" value="Save" id="clinicSubmit">
+				</form>
+			</div>
+		</div>
+
+		<!-- This Script opens the edit clinic info pop up form -->
+		<script>
+			var modalClin = document.getElementById("clinicPop");
+			var btnClin =  document.getElementById("clinicEdit");
+			btnClin.onclick = function() {
+				modalClin.style.display = "block";
+			}
+			var closeClin = document.getElementById("clinicSubmit");
+			closeClin.onclick = function () {
+				modalClin.style.display = "none";
+			}
+		</script> 
+
 
 		<!-- Manage Clinicians Quadrant -->
 		<h1 class="clinicianTitle">
 			Manage Clinicians
 		</h1>
 
-		<button class="addClinition">
+		<button class="addClinician" id="addClinician">
 			+ Add
 		</button>
 
@@ -191,7 +235,7 @@
 					<td>[Date, Time]</td>
 					<td>
 						<button class="buttSmall">
-							Edit
+							Delete
 						</button>
 					</td>
 				</tr>
@@ -199,6 +243,38 @@
 			</table>
 
 		</div>
+
+		<!-- This is the pop up window for adding a new  clinician  -->
+
+		<div class="clinicianPop" id="clinicianPop">
+			<div class="clinicianPopCon">
+				<h2 class="popTitle">
+					Add a New Clinician
+				</h2>
+				<form>
+					<label for="firstName">First Name</label>
+					<input type="text" id="firstName" name="firstName" style="margin-top:30px;"> <br>
+
+					<label for="lastName">Last Name</label>
+					<input type="text" id="lastName" name="lastName">
+
+					<input type="submit" value="+ Add" id="clinicianSubmit">
+				</form>
+			</div>
+		</div>
+
+		<!-- This Script opens the add clinician pop up form -->
+		<script>
+			var modalClinician = document.getElementById("clinicianPop");
+			var btnClinician =  document.getElementById("addClinician");
+			btnClinician.onclick = function() {
+				modalClinician.style.display = "block";
+			}
+			var closeClinician = document.getElementById("clinicianSubmit");
+			closeClinician.onclick = function () {
+				modalClinician.style.display = "none";
+			}
+		</script>
 
 	</div>
 
