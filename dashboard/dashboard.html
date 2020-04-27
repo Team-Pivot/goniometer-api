@@ -1,0 +1,316 @@
+<DOCTYPE! html>
+<html>
+<link rel ="stylesheet" href="dashboardStyle.css">
+<script src="apicalls.js"></script>
+
+	<!-- Header Bar -->
+	<div class="rectangle">
+		<h1 class ="clinicName">[Clinic Name Placeholder]</h1>
+		<h2 class ="home" id="home"> Dashboard</h2>
+		<h2 class="measures" id="measures">View Measurements</h2>
+		<h2 class="logout" id="logout">Logout</h2>
+	</div>
+
+	<!-- script that controls the actions for the header bar -->
+	<script type="text/javascript">
+		var logout = document.getElementById("logout");
+		logout.onclick = function() {
+			window.location.href = "login.html";
+		}
+
+		var measure = document.getElementById("measures");
+		measure.onclick = function() {
+			window.location.href = "measures.html";
+		}
+
+		var home = document.getElementById("home");
+		home.onclick = function() {
+			window.location.href = "dashboard.html";
+		}
+
+		//gets a clinic to use for the clinic name and info
+
+		get('https://localhost/clinics')
+  			.then((data) => {
+    			console.log(data); // JSON data parsed by `response.json()` call
+  			});
+
+
+	</script>
+
+	<!-- Welcome Bar -->
+	<div>
+		<header class="welcome">
+			Welcome [Clinician Placeholder]
+		</header>
+		<div class="rectangle2"></div>
+	</div>
+
+	<!-- Goniometer Bar -->
+	<div>
+		<h1 class="manGon"> Manage Goniometers </h1>
+
+		<!-- One Div Per Goniometer -->
+		<div class="gonFrame">
+			<svg height="120" width="226">
+				<rect y="45" x="53" rx="10" ry="10" width="90" height="20" transform="rotate(45 100 100)" style="fill:#c4c4c4;"/>
+				<rect y="60" x="70" rx="10" ry="10" width="90" height="20" transform="rotate(-45 100 100)" style="fill:#4B79BF;"/>
+				<circle cy="50" cx="113" r="30" fill="#4B79BF" />
+				<circle cy="50" cx="113" r="5" fill="#c4c4c4" />
+			</svg>
+
+			<div class="gonMenu">
+				<img onclick= "dropDown()" class="menuIcon" src="Images/more_options.png"/>
+				<div id="menu1" class="menu">
+					<p id="gonName">Rename</p>
+					<p style="color:red;">Delete</p>
+				</div>
+			</div>
+
+			<div class="gonNamePop" id="gonNamePop">
+			<div class="gonNamePopCon">
+				<h2 class="popTitle">
+					Rename Goniometer
+				</h2>
+				<form>
+					<label for="devNameNew">Device Name</label>
+					<input type="text" id="devNameNew" name="devNameNew" style="margin-top:30px;"> <br>
+
+
+					<input type="submit" value="Rename" id="gonNameSubmit">
+				</form>
+			</div>
+			</div> 
+
+
+			<!-- Controls the drop down menu for this goniometer -->
+			<script>
+				function dropDown() {
+					document.getElementById("menu1").classList.toggle("show");
+				}
+
+				window.onclick = function(event) {
+  					if (!event.target.matches('.menuIcon')) {
+    					var dropdowns = document.getElementsByClassName("menu");
+    					var i;
+    					for (i = 0; i < dropdowns.length; i++) {
+      						var openDropdown = dropdowns[i];
+      						if (openDropdown.classList.contains('show')) {
+        						openDropdown.classList.remove('show');
+      						}
+    					}
+  					}
+				}
+
+
+				//Functionality for the Rename drop down
+
+				var modalName = document.getElementById("gonNamePop");
+				var btnName =  document.getElementById("gonName");
+				btnName.onclick = function() {
+					modalName.style.display = "block";
+				}
+				var close = document.getElementById("gonNameSubmit");
+				close.onclick = function () {
+					modal.style.display = "none";
+				}
+
+			</script>
+
+
+			<small class="gonBold">Device Name:</small>
+			<small class ="gonThin">[Goniometer Name]</small>
+
+			<small class="gonBold" style="top:136px">Device Num:</small>
+			<small class ="gonThin" style="top:136px">[Goniometer #]</small>
+
+			<small class="gonBold" style="top:158px"> Last Used:</small>
+			<small class ="gonThin" style="top:158px">[ Use Date and Time]</small>
+		</div>
+
+
+		<!-- Div for adding a new Goniometer is added to the right of the last goniometer frame-->
+		<div class="addGonFrame">
+			<svg>
+				<svg height="120" width="226">
+				<rect y="45" x="53" rx="10" ry="10" width="100" height="22" transform="rotate(45 100 100)" style="fill:#c4c4c4;"/>
+				<rect y="62" x="62" rx="10" ry="10" width="100" height="22" transform="rotate(-45 100 100)" style="fill:#4B79BF;"/>
+				<circle cy="50" cx="113" r="34" fill="#4B79BF" />
+				<circle cy="50" cx="113" r="7" fill="#c4c4c4" />
+			</svg>
+				<rect height="38" width="7" y="8" x="192" style="fill:#368E00;" transform="rotate(90 188.5 26.5)" />
+				<rect height="38" width="7" y="15" x="185" style="fill:#368E00;" />
+			</svg>
+
+
+			<button class="addGon" id="addGon">
+					Add Goniomter
+			</button>
+		</div>
+
+		<!-- This is the popo up window for adding a goniometer -->
+
+		<div class="gonPop" id="gonPop">
+			<div class="gonPopCon">
+				<h2 class="popTitle">
+					Add New Goniometer
+				</h2>
+				<form>
+					<label for="devName">Device Name</label>
+					<input type="text" id="devName" name="devName" style="margin-top:30px;"> <br>
+
+					<label for="devCode">Device Activation Code</label>
+					<input type="text" id="devCode" name="devCode">
+
+					<input type="submit" value="+ Add" id="gonSubmit">
+				</form>
+			</div>
+		</div>
+
+		<!-- This Script opens the add goniometer pop up form -->
+		<script>
+			var modal = document.getElementById("gonPop");
+			var btn =  document.getElementById("addGon");
+			btn.onclick = function() {
+				modal.style.display = "block";
+			}
+			var close = document.getElementById("gonSubmit");
+			close.onclick = function () {
+				modal.style.display = "none";
+			}
+		</script> 
+
+
+		<!-- Manage Clinic Informaion Quadrant -->
+		<h1 class="clinicInfo">
+			Manage Clinic Information
+		</h1>
+
+		<button class="clinicEdit" id="clinicEdit">
+			Edit
+		</button>
+
+		<div class="clinicFrame">
+
+			<h2 class="clinicLabels" style="top:-25px">Clinic Name</h2>
+			<p class="clinicStuff" style="top:37px">[Clinic Name]</p>
+
+			<h2 class="clinicLabels" style="top:40px">Address</h2>
+			<p class="clinicStuff" style="top:97px">[Clinic Address]</p>
+
+			<h2 class="clinicLabels" style="top:105px">Billing Information</h2>
+			<p class="clinicStuff" style="top:167px">Billing Address:</p>
+			<p class="clinicStuff" style="top:167px;left:162px">123 Street, Atlanta GA, 30318 </p>
+			<p class="clinicStuff" style="top:192px">Payment Method:</p>
+			<p class="clinicStuff" style="top:192px;left:162px">Visa Ending in 1234</p>
+
+			<div class="sep" style="top:45px"></div>
+			<div class="sep" style="top:109px"></div>
+			<div class="sep" style="top:173px"></div>
+
+		</div>
+
+
+		<!-- This is the pop up window for editing the clinic information -->
+
+		<div class="clinicPop" id="clinicPop">
+			<div class="clinicPopCon">
+				<h2 class="popTitle">
+					Edit Clinic Information
+				</h2>
+				<form>
+					<label for="clinname">Update Clinic Name</label>
+					<input type="text" id="clinname" name="clinname" style="margin-top:30px;"> <br>
+
+					<label for="address">Update Clinic Address</label>
+					<input type="text" id="address" name="address">
+
+					<input type="submit" value="Save" id="clinicSubmit">
+				</form>
+			</div>
+		</div>
+
+		<!-- This Script opens the edit clinic info pop up form -->
+		<script>
+			var modalClin = document.getElementById("clinicPop");
+			var btnClin =  document.getElementById("clinicEdit");
+			btnClin.onclick = function() {
+				modalClin.style.display = "block";
+			}
+			var closeClin = document.getElementById("clinicSubmit");
+			closeClin.onclick = function () {
+				modalClin.style.display = "none";
+			}
+		</script> 
+
+
+		<!-- Manage Clinicians Quadrant -->
+		<h1 class="clinicianTitle">
+			Manage Clinicians
+		</h1>
+
+		<button class="addClinician" id="addClinician">
+			+ Add
+		</button>
+
+		<div class="clinicianFrame">
+			<!-- Table for clinician information -->
+			<table>
+				<tr>
+					<th>Last Name, First Name</th>
+					<th>Is Admin</th>
+					<th>Accessed Dashboard On:</th>
+					<th>Actions</th>
+				</tr>
+
+				<!-- 1 row added per clinician -->
+				<tr>
+					<td>[Last, First]</td>
+					<td>No</td>
+					<td>[Date, Time]</td>
+					<td>
+						<button class="buttSmall">
+							Delete
+						</button>
+					</td>
+				</tr>
+
+			</table>
+
+		</div>
+
+		<!-- This is the pop up window for adding a new  clinician  -->
+
+		<div class="clinicianPop" id="clinicianPop">
+			<div class="clinicianPopCon">
+				<h2 class="popTitle">
+					Add a New Clinician
+				</h2>
+				<form>
+					<label for="firstName">First Name</label>
+					<input type="text" id="firstName" name="firstName" style="margin-top:30px;"> <br>
+
+					<label for="lastName">Last Name</label>
+					<input type="text" id="lastName" name="lastName">
+
+					<input type="submit" value="+ Add" id="clinicianSubmit">
+				</form>
+			</div>
+		</div>
+
+		<!-- This Script opens the add clinician pop up form -->
+		<script>
+			var modalClinician = document.getElementById("clinicianPop");
+			var btnClinician =  document.getElementById("addClinician");
+			btnClinician.onclick = function() {
+				modalClinician.style.display = "block";
+			}
+			var closeClinician = document.getElementById("clinicianSubmit");
+			closeClinician.onclick = function () {
+				modalClinician.style.display = "none";
+			}
+		</script>
+
+	</div>
+
+</html>

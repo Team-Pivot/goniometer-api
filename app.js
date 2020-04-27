@@ -7,7 +7,7 @@ import routes from './routes';
 import { handleException } from './utils';
 
 const app = express();
-const PORT = config.port || 80;
+const PORT = config.port || 3000;
 
 app.use(helmet());
 app.use(bodyParser.json());
