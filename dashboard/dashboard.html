@@ -1,6 +1,7 @@
 <DOCTYPE! html>
 <html>
 <link rel ="stylesheet" href="dashboardStyle.css">
+<script src="apicalls.js"></script>
 
 	<!-- Header Bar -->
 	<div class="rectangle">
@@ -26,6 +27,15 @@
 		home.onclick = function() {
 			window.location.href = "dashboard.html";
 		}
+
+		//gets a clinic to use for the clinic name and info
+
+		get('https://localhost/clinics')
+  			.then((data) => {
+    			console.log(data); // JSON data parsed by `response.json()` call
+  			});
+
+
 	</script>
 
 	<!-- Welcome Bar -->
@@ -52,10 +62,25 @@
 			<div class="gonMenu">
 				<img onclick= "dropDown()" class="menuIcon" src="Images/more_options.png"/>
 				<div id="menu1" class="menu">
-					<p>Rename</p>
+					<p id="gonName">Rename</p>
 					<p style="color:red;">Delete</p>
 				</div>
 			</div>
+
+			<div class="gonNamePop" id="gonNamePop">
+			<div class="gonNamePopCon">
+				<h2 class="popTitle">
+					Rename Goniometer
+				</h2>
+				<form>
+					<label for="devNameNew">Device Name</label>
+					<input type="text" id="devNameNew" name="devNameNew" style="margin-top:30px;"> <br>
+
+
+					<input type="submit" value="Rename" id="gonNameSubmit">
+				</form>
+			</div>
+			</div> 
 
 
 			<!-- Controls the drop down menu for this goniometer -->
@@ -78,7 +103,17 @@
 				}
 
 
-				//add functionality for the Rename and Delete buttons here!
+				//Functionality for the Rename drop down
+
+				var modalName = document.getElementById("gonNamePop");
+				var btnName =  document.getElementById("gonName");
+				btnName.onclick = function() {
+					modalName.style.display = "block";
+				}
+				var close = document.getElementById("gonNameSubmit");
+				close.onclick = function () {
+					modal.style.display = "none";
+				}
 
 			</script>
 
@@ -113,7 +148,7 @@
 			</button>
 		</div>
 
-		<!-- This is the popo up window for addinvg a goniometer -->
+		<!-- This is the popo up window for adding a goniometer -->
 
 		<div class="gonPop" id="gonPop">
 			<div class="gonPopCon">

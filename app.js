@@ -6,7 +6,7 @@ import config from './.config';
 import routes from './routes';
 
 const app = express();
-const PORT = config.port || 80;
+const PORT = config.port || 3000;
 
 app.use(helmet());
 app.use(bodyParser.json());
