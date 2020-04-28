@@ -5,7 +5,7 @@
 
 	<!-- Header Bar -->
 	<div class="rectangle">
-		<h1 class ="clinicName">[Clinic Name Placeholder]</h1>
+		<h1 class ="clinicName" id="clinicName"></h1>
 		<h2 class ="home" id="home"> Dashboard</h2>
 		<h2 class="measures" id="measures">View Measurements</h2>
 		<h2 class="logout" id="logout">Logout</h2>
@@ -27,6 +27,15 @@
 		home.onclick = function() {
 			window.location.href = "dashboard.html";
 		}
+
+		var clinic = get('/clinics')
+  			.then((data) => {
+    			clinicName = data[0].name;
+
+    			//places these values into the html
+  				document.getElementById("clinicName").innerHTML = clinicName;
+  			});
+
 	</script>
 
 	<!-- Welcome Bar -->

@@ -5,7 +5,7 @@
 
 	<!-- Header Bar -->
 	<div class="rectangle">
-		<h1 class ="clinicName">[Clinic Name Placeholder]</h1>
+		<h1 class ="clinicName" id="clinicName"></h1>
 		<h2 class ="home" id="home"> Dashboard</h2>
 		<h2 class="measures" id="measures">View Measurements</h2>
 		<h2 class="logout" id="logout">Logout</h2>
@@ -29,10 +29,25 @@
 		}
 
 		//gets a clinic to use for the clinic name and info
+		var clinicName;
+		var clinicAddress;
 
-		get('https://localhost/clinics')
+		get('/clinics')
   			.then((data) => {
-    			console.log(data); // JSON data parsed by `response.json()` call
+    			clinicName = data[0].name;
+    			clinicAddress = data[0].street + ', ' + data[0].state + ' ' + data[0].zipcode;
+
+    			//places these values into the html
+  				document.getElementById("clinicName").innerHTML = clinicName;
+  				document.getElementById("clinicName2").innerHTML = clinicName;
+  				document.getElementById("clinicAddress").innerHTML = clinicAddress;
+  			});
+
+  		var clientName
+  		get('/clients')
+  			.then((data) => {
+  				clientName = data[0].firstName;
+  				document.getElementById("welcome").innerHTML = "Welcome " + clientName;
   			});
 
 
@@ -40,9 +55,7 @@
 
 	<!-- Welcome Bar -->
 	<div>
-		<header class="welcome">
-			Welcome [Clinician Placeholder]
-		</header>
+		<header class="welcome" id="welcome"></header>
 		<div class="rectangle2"></div>
 	</div>
 
@@ -193,10 +206,10 @@
 		<div class="clinicFrame">
 
 			<h2 class="clinicLabels" style="top:-25px">Clinic Name</h2>
-			<p class="clinicStuff" style="top:37px">[Clinic Name]</p>
+			<p class="clinicStuff" id="clinicName2" style="top:37px"></p>
 
 			<h2 class="clinicLabels" style="top:40px">Address</h2>
-			<p class="clinicStuff" style="top:97px">[Clinic Address]</p>
+			<p class="clinicStuff" id="clinicAddress" style="top:97px"></p>
 
 			<h2 class="clinicLabels" style="top:105px">Billing Information</h2>
 			<p class="clinicStuff" style="top:167px">Billing Address:</p>
@@ -256,24 +269,16 @@
 		<div class="clinicianFrame">
 			<!-- Table for clinician information -->
 			<table>
-				<tr>
-					<th>Last Name, First Name</th>
-					<th>Is Admin</th>
-					<th>Accessed Dashboard On:</th>
-					<th>Actions</th>
-				</tr>
-
+				<tbody id="clinicianTable">
+					<tr>
+						<th>Last Name, First Name</th>
+						<th>Is Admin</th>
+						<th>Accessed Dashboard On:</th>
+						<th>Actions</th>
+					</tr>
 				<!-- 1 row added per clinician -->
-				<tr>
-					<td>[Last, First]</td>
-					<td>No</td>
-					<td>[Date, Time]</td>
-					<td>
-						<button class="buttSmall">
-							Delete
-						</button>
-					</td>
-				</tr>
+					
+				</tbody>
 
 			</table>
 
@@ -309,6 +314,38 @@
 			closeClinician.onclick = function () {
 				modalClinician.style.display = "none";
 			}
+
+			//this section fills in the clinician list
+			get("/clients")
+				.then((data) => {
+					var firstName;
+					var lastName;
+
+					var i = 0;
+					while(i < data.length){
+						firstName = data[i].firstName;
+						lastName = data[i].lastName;
+						birthdate = data[i].birthDate;
+						var entry = document.createElement("TR");
+						var names = document.createElement("TD");
+						names.innerHTML = lastName + ', ' + firstName;
+						entry.appendChild(names);
+						var admin = document.createElement("TD");
+						admin.innerHTML = "No";
+						entry.appendChild(admin);
+						var date = document.createElement("TD");
+						date.innerHTML = "2020-04-26";
+						entry.appendChild(date);
+						var button = document.createElement("BUTTON");
+						button.innerHTML = "Delete";
+						button.className = "buttSmall";
+						var buttTD = document.createElement("TD");
+						buttTD.appendChild(button);
+						entry.appendChild(buttTD);
+						document.getElementById("clinicianTable").appendChild(entry);
+						i++;
+					}
+				});
 		</script>
 
 	</div>
