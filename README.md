@@ -373,7 +373,7 @@ Registers an existing goniometer to the clinic (will NOT create a new goniometer
 }
 ```
 
-### UPDATE /clinics/:clinic/goniometers/:goniometer
+### PUT /clinics/:clinic/goniometers/:goniometer
 #### Description
 Allows updating of the clinic's goniometer name (but not assigned clinic).
 
@@ -507,7 +507,7 @@ Deletes the given goniometer. Fails if the goniometer does not exist
 ```
 
 
-### UPDATE /goniometers/:goniometer
+### PUT /goniometers/:goniometer
 #### Description
 Updates the goniometer clinic and name
 
@@ -597,7 +597,7 @@ npm install
 ### Setting Up the Apache Server
 You'll need to set the document root and index in the httpd.conf file for the server to return the webapplication to the user. The location of this file and the comands used to control the server will very based on your opperating system.
 
-Inside of your Apache2 directory open the /conf/httpd.conf file. 
+Inside of your Apache2 directory open the /conf/httpd.conf file.
 
 Set the DocumentRoot to [file path to repository]/dashboard
 
