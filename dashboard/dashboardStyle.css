@@ -182,7 +182,7 @@ small {
 	position: absolute;
 	width: 226px;
 	height: 186px;
-	left: 411px;
+	margin-left: 411px;
 	top: 232px;
 
 	background: #D3DFF1;
@@ -362,6 +362,8 @@ td{
 }
 
 svg {
+	width: 226px;
+	height: 186px;
 	left: 10px;
 }
 
@@ -511,7 +513,7 @@ input[type=submit] {
 	position: relative;
   	display: inline-block;
   	left: 210px;
-	bottom: 110px;
+	bottom: 170px;
 }
 
 .menu {
@@ -526,4 +528,13 @@ input[type=submit] {
 
 .show {
 	display: block;
+}
+
+.measurements {
+	margin-top: 15px;
+}
+
+.measurementFrame {
+	margin-top: 190px;
+	margin-left: 80px;
 }

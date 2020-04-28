@@ -46,7 +46,37 @@
 		<div class="rectangle2"></div>
 	</div>
 
-	<!-- each measurement is listed as an individidual <p> below here -->
+	<!-- each measurement is listed as an individidual <p> -->
+	<div class="measurementFrame" id="measurementFrame">
+		<script>
+			get("clients")
+				.then((data1) => {
+					var j = 0;
+					while(j < data1.length){
+						var clientId = data1[j].id;
+						var uri = "/clients/" + clientId + "/measurements"
+						get(uri)
+							.then((data) => {
+								// this loops through all of the measurements and pastes them to the screen	
+								var i = 0;
+								while(i < data.length){
+									var entry = document.createElement("P");
+									entry.className = "measurements";
+
+									angle = data[i].angle;
+									endAngle = data[i].endAngle;
+									jointType = data[i].jointType;
+									measurementType = data[i].measurementType;
+									entry.innerHTML = "angle: " + angle + " end Angle: " + endAngle + " joint Type: " + jointType + " measurement Type: " + measurementType;
+									document.getElementById("measurementFrame").appendChild(entry);
+									i++;
+								}
+						});
+						j++;
+					}
+				});
+		</script>
+	</div>
 
 
 </html>
