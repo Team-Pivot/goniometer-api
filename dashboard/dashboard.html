@@ -269,7 +269,7 @@
 			+ Add
 		</button>
 
-		<div class="clinicianFrame">
+		<div class="clinicianFrame" id="clinicianFrame">
 			<!-- Table for clinician information -->
 			<table>
 				<tbody id="clinicianTable">
@@ -287,6 +287,8 @@
 
 		</div>
 
+
+
 		<!-- This is the pop up window for adding a new  clinician  -->
 
 		<div class="clinicianPop" id="clinicianPop">
@@ -294,12 +296,12 @@
 				<h2 class="popTitle">
 					Add a New Clinician
 				</h2>
-				<form>
+				<form id="clinicianForm">
 					<label for="fName">First Name</label>
 					<input type="text" id="fName" name="fName" style="margin-top:30px;"> <br>
 
 					<label for="lName">Last Name</label>
-					<input type="text" id="Name" name="Name">
+					<input type="text" id="lName" name="lName">
 
 					<input type="submit" value="+ Add" id="clinicianSubmit">
 				</form>
@@ -313,10 +315,22 @@
 			btnClinician.onclick = function() {
 				modalClinician.style.display = "block";
 			}
-			var closeClinician = document.getElementById("clinicianSubmit");
-			closeClinician.onclick = function() {
+			var closeClinician = document.getElementById("clinicianForm");
+			closeClinician.addEventListener("submit", function() {
+				//event.preventDefault();
+				postData = {
+					firstName: document.getElementById("lName").value,
+					lastName: document.getElementById("fName").value,
+					clinic: clinicId,
+					birthDate: "01/01/1960"
+				};
+
+				console.log(JSON.stringify(postData));
+
+				post("/clients", postData);
+
 				modalClinician.style.display = "none";
-			};
+			});
 
 			//this section fills in the clinician list
 			get("/clients")
@@ -329,6 +343,7 @@
 						firstName = data[i].firstName;
 						lastName = data[i].lastName;
 						birthdate = data[i].birthDate;
+						var clientId = data[i].id;
 						var entry = document.createElement("TR");
 						var names = document.createElement("TD");
 						names.innerHTML = lastName + ', ' + firstName;
@@ -342,6 +357,12 @@
 						var button = document.createElement("BUTTON");
 						button.innerHTML = "Delete";
 						button.className = "buttSmall";
+						button.addEventListener("click", function(){
+							var uri = "/clients/" + this.id;
+							del(uri);
+							location.reload();
+						});
+						button.id = clientId;
 						var buttTD = document.createElement("TD");
 						buttTD.appendChild(button);
 						entry.appendChild(buttTD);

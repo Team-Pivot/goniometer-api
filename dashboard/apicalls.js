@@ -1,15 +1,10 @@
 //POST function
 async function post(url = '', data = {}) {
   const response = await fetch(url, {
-    method: 'POST', 
-    mode: 'no-cors', 
-    cache: 'no-cache', 
-    credentials: 'omit', 
+    method: 'POST',   
     headers: {
       'Content-Type': 'application/json'
-    },
-    redirect: 'manual', 
-    referrerPolicy: 'no-referrer', 
+          }, 
     body: JSON.stringify(data) 
   });
   return response.json(); // parses JSON response into native JavaScript objects
@@ -35,15 +30,21 @@ async function get(url = '') {
 async function put(url = '', data = {}) {
   const response = await fetch(url, {
     method: 'PUT', 
-    mode: 'no-cors', 
-    cache: 'no-cache', 
-    credentials: 'omit', 
     headers: {
       'Content-Type': 'application/json'
     },
-    redirect: 'manual',
-    referrerPolicy: 'no-referrer', 
     body: JSON.stringify(data)
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+//Delete function
+async function del(url = '') {
+  const response = await fetch(url, {
+    method: 'DELETE', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
