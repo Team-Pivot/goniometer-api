@@ -29,6 +29,9 @@ export default async function insertMeasurement({
     }
     throw new Exception('Insert failed for measurement');
   } catch (err) {
+    if (SQLCodes.isFkError(err)) {
+      throw new Exception(404, 'Clinic or client not found');
+    }
     throw err;
   }
 }
