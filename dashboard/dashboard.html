@@ -31,12 +31,18 @@
 		//gets a clinic to use for the clinic name and info
 		var clinicName = "";
 		var clinicAddress = "";
+		var clinicStreet ="";
+		var clinicZip = "";
+		var clinicState ="";
 		var clinicId = "fear ";
 
 		get('/clinics')
   			.then((data) => {
     			clinicName = data[0].name;
     			clinicAddress = data[0].street + ', ' + data[0].state + ' ' + data[0].zipcode;
+    			clinicStreet = data[0].street;
+    			clinicState = data[0].state;
+    			clinicZip = data[0].zipcode;
     			clinicId = data[0].id;
 
     			//places these values into the html
@@ -238,10 +244,17 @@
 					<label for="clinname">Update Clinic Name</label>
 					<input type="text" id="clinname" name="clinname" style="margin-top:30px;"> <br>
 
-					<label for="address">Update Clinic Address</label>
-					<input type="text" id="address" name="address">
+					<label for="address">Update Clinic Street</label>
+					<input type="text" id="address" name="address"><br>
+
+					<label for="state">Update Clinic State</label>
+					<input type="text" id="state" name="state"><br>
+
+					<label for="zip">Update Clinic Zipcode</label>
+					<input type="text" id="zip" name="zip">
 
 					<input type="submit" value="Save" id="clinicSubmit">
+
 				</form>
 			</div>
 		</div>
@@ -251,10 +264,21 @@
 			var modalClin = document.getElementById("clinicPop");
 			var btnClin =  document.getElementById("clinicEdit");
 			btnClin.onclick = function() {
+				document.getElementById("clinname").value = clinicName;
+				document.getElementById("address").value = clinicStreet;
+				document.getElementById("state").value = clinicState;
+				document.getElementById("zip").value = clinicZip;
 				modalClin.style.display = "block";
 			}
 			var closeClin = document.getElementById("clinicSubmit");
 			closeClin.onclick = function () {
+				var uri = "/clinics/" + clinicId;
+				put(uri, {
+					name: document.getElementById("clinname").value,
+					street: document.getElementById("address").value,
+					state: document.getElementById("state").value,
+					zipcode: document.getElementById("zip").value
+				});
 				modalClin.style.display = "none";
 			}
 		</script> 
