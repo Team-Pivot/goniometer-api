@@ -11,7 +11,7 @@ export default async function updateClient({ id }) {
     if (result.affectedRows > 0) {
       return result;
     }
-    throw new Exception('Delete failed for clinic');
+    throw new Exception(500, 'Delete failed for clinic');
   } catch (err) {
     throw err;
   }

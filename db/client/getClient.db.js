@@ -20,7 +20,7 @@ export default async function getClientList({ id } = {}) {
     if (results.length > 0) {
       return results[0];
     }
-    throw new Exception('Failed to get client', 404);
+    throw new Exception(404, 'Failed to get client');
   } catch (err) {
     throw err;
   }

@@ -21,7 +21,7 @@ export default async function insertClient({
     if (result.insertId != null) {
       return id;
     }
-    throw new Exception('Insert failed for measurement');
+    throw new Exception(500, 'Insert failed for measurement');
   } catch (err) {
     throw err;
   }
