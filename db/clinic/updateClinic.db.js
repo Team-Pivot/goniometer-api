@@ -20,7 +20,7 @@ export default async function updateClient({
     if (result.affectedRows > 0) {
       return result;
     }
-    throw new Exception('Update failed for clinic');
+    throw new Exception(500, 'Update failed for clinic');
   } catch (err) {
     throw err;
   }

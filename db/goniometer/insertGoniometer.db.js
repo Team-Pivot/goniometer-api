@@ -20,6 +20,9 @@ export default async function insertGoniometer({ name, clinic }) {
     }
     throw new Exception(500, 'Insert failed for measurement');
   } catch (err) {
+    if (SQLCodes.isFkError(err)) {
+      throw new Exception(404, 'Clinic not found');
+    }
     throw err;
   }
 }

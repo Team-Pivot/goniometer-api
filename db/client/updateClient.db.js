@@ -26,7 +26,7 @@ export default async function updateClient({
     if (result.affectedRows > 0) {
       return result;
     }
-    throw new Exception('Update failed for client');
+    throw new Exception(500, 'Update failed for client');
   } catch (err) {
     throw err;
   }
